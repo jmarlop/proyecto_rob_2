@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HYPERPARK</title>
+  <link rel="stylesheet" href="diseño.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body>
+  <h1 id="titulo">HYPERPARK</h1>
+  <button id="btnMostrar">Haz click para continuar</button>
+  <canvas id="qr"></canvas>
+
+  <script>
+    const url = "https://jmarlop.github.io/proyecto_rob_2/";
+    QRCode.toCanvas(document.getElementById('qr'), url, function (error) {
+      if (error) console.error(error);
+      console.log('¡QR generado!');
+    });
+  </script>
+
+  <script src="pagina.js"></script>
+</body>
+</html>
