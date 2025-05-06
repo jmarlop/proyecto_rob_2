@@ -1,10 +1,11 @@
 /* Fondo de pantalla inicial */
 body {
     background: linear-gradient(to bottom, #000000, #007cba); /* Degradado negro a azul */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 0;
+    background-size: cover; /* Hace que el fondo cubra toda la pantalla */
+    background-repeat: no-repeat; /* No se repite el fondo */
+    background-position: center; /* Centra el fondo */
+    height: 100vh; /* Asegura que el fondo cubra toda la altura de la pantalla */
+    margin: 0; /* Elimina márgenes */
     padding: 0;
   }
   
