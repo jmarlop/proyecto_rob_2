@@ -1,37 +1,40 @@
+/* Fondo de pantalla */
 body {
-    background: linear-gradient(to bottom, rgb(248, 247, 247), rgb(35, 204, 255));
+    background-image: url('fondo.jpg'); /* Usa la ruta correcta */
+    background-size: cover; /* Hace que la imagen cubra toda la pantalla */
+    background-repeat: no-repeat;
+    background-position: center;
     margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-h1 {
+    padding: 0;
+    font-family: sans-serif;
+  }
+  
+  /* Ocultar el QR */
+  #qr {
+    display: none;
+  }
+  
+  h1 {
     font-family: 'Monaco', 'Lucida Console', 'Andale Mono', monospace;
-    color: rgb(0, 0, 0);
-    font-size: 144px;
+    color: rgb(0, 25, 212);
+    font-size: 36px;
     text-align: center;
-    font-weight : bold;
-
-    /*comienzo de la animacion, aparece transparente*/
+    font-weight: bold;
+  
+    /* Animación de entrada */
     opacity: 0;
-    animation: aparecer 2s ease-in forwards; /*nombre, tiempo, velocidad, conservaion de la animacion*/
+    animation: aparecer 2s ease-in forwards;
     animation-delay: 2s;
-}
-@keyframes aparecer {
+  }
+  
+  @keyframes aparecer {
     0% {
-        opacity: 0;
-        transform: translateY(-50px);
+      opacity: 0;
+      transform: translateY(-50px);
     }
     100% {
-        opacity: 1;
-        transform: translateY(0);
+      opacity: 1;
+      transform: translateY(0);
     }
-}
-body:active {
-    background: linear-gradient(to bottom, #4682B4, #87CEEB); /* Invertir el gradiente al hacer clic */
-}
-
-
+  }
+  
