@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>QR de mi web</title>
+  <meta charset="UTF-8">
+  <title> HYPERPARK </title>
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <link rel="stylesheet" href="diseño.css">
+  
 </head>
 <body>
-  <h1>QR de mi página</h1>
-  <canvas id="qr"></canvas>
-
   <script>
     const url = " https://jmarlop.github.io/proyecto_rob_2/";
     QRCode.toCanvas(document.getElementById('qr'), url, function (error) {
@@ -15,6 +15,10 @@
       console.log('¡QR generado!');
     });
   </script>
+  <h1 id="titulo">HYPERPARK</h1>
+  <button id="btnMostrar">Haz click para continuar</button>
+
+  <script src="pagina.js"></script>
 </body>
 </html>
 

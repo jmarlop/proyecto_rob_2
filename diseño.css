@@ -1,0 +1,24 @@
+h1 {
+    font-family: 'Monaco', 'Lucida Console', 'Andale Mono', monospace;
+    color: rgb(0, 25, 212);
+    font-size: 36px;
+    text-align: center;
+    font-weight : bold;
+
+    /*comienzo de la animacion, aparece transparente*/
+    opacity: 0;
+    animation: aparecer 2s ease-in forwards; /*nombre, tiempo, velocidad, conservaion de la animacion*/
+    animation-delay: 2s;
+}
+@keyframes aparecer {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
