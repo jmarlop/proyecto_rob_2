@@ -1,12 +1,11 @@
 /* Fondo de pantalla */
 body {
-    background-image: url('fondo.jpg'); /* Usa la ruta correcta */
+    background: linear-gradient(to bottom , #000000, #007cba); /* Usa la ruta correcta */
     background-size: cover; /* Hace que la imagen cubra toda la pantalla */
     background-repeat: no-repeat;
     background-position: center;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
   }
   
   /* Ocultar el QR */
@@ -16,8 +15,8 @@ body {
   
   h1 {
     font-family: 'Monaco', 'Lucida Console', 'Andale Mono', monospace;
-    color: rgb(0, 25, 212);
-    font-size: 36px;
+    color: rgb(255, 253, 113);
+    font-size: 144px;
     text-align: center;
     font-weight: bold;
   
