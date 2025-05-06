@@ -1,18 +1,14 @@
-/* Fondo de pantalla */
+/* Fondo de pantalla inicial */
 body {
-    background: linear-gradient(to bottom , #000000, #007cba); /* Usa la ruta correcta */
-    background-size: cover; /* Hace que la imagen cubra toda la pantalla */
+    background: linear-gradient(to bottom, #000000, #007cba); /* Degradado negro a azul */
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     margin: 0;
     padding: 0;
   }
   
-  /* Ocultar el QR */
-  #qr {
-    display: none;
-  }
-  
+  /* Animación del título */
   h1 {
     font-family: 'Monaco', 'Lucida Console', 'Andale Mono', monospace;
     color: rgb(255, 253, 113);
