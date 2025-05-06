@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Envío de Ropa</title>
+  <title>QR de mi web</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 </head>
 <body>
-  <h1>Proyecto Ropa</h1>
-  <p>Hola mundo</p>
+  <h1>QR de mi página</h1>
+  <canvas id="qr"></canvas>
+
+  <script>
+    const url = "https://jmarlop.github.io/pagina_web/";
+    QRCode.toCanvas(document.getElementById('qr'), url, function (error) {
+      if (error) console.error(error);
+      console.log('¡QR generado!');
+    });
+  </script>
 </body>
 </html>
+
