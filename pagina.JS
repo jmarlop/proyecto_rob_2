@@ -17,27 +17,30 @@ document.getElementById('confirmarChaqueta').addEventListener('click', () => {
 document.addEventListener("DOMContentLoaded", function () {
     const texto = document.getElementById("Texto_Desaparecer");
     const nombreEmpresa = document.getElementById("Nombre_Empresa");
-
-    // Función que maneja la transición del texto
+  
     function iniciarTransicion() {
-        if (texto) {
-            texto.style.opacity = "0";
-            setTimeout(() => {
-                texto.style.display = "none";
-                nombreEmpresa.classList.add("aparece");  // Esta es la animación de la empresa
-            }, 500); // Eliminamos el texto después de 0.5 segundos
-        }
-
-        document.body.style.transition = "background 3s ease-in-out";
-        document.body.style.background = "linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4)"; // Cambio de fondo
-
-        // Evita que se repita
-        document.removeEventListener("click", iniciarTransicion);
-        document.removeEventListener("touchstart", iniciarTransicion);
+      if (texto) {
+        texto.style.opacity = "0";
+        setTimeout(() => {
+          texto.style.display = "none";
+          nombreEmpresa.classList.add("aparece");
+        }, 500);
+      }
+  
+      // Cambiar el fondo solo después de hacer clic o tocar
+      document.body.style.transition = "background 3s ease-in-out";
+      document.body.style.background = "linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4)";
+  
+      // Evita que se repita
+      document.removeEventListener("click", iniciarTransicion);
+      document.removeEventListener("touchstart", iniciarTransicion);
     }
-
-    // Asegurarnos de que el evento de clic esté bien registrado
+  
+    // Escucha el primer clic o toque para iniciar la transición
     document.addEventListener("click", iniciarTransicion);
     document.addEventListener("touchstart", iniciarTransicion);
-});
+  });
+  
+  
+  
   
