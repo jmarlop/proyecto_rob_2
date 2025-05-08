@@ -1,29 +1,22 @@
-
-
-// Confirmar las selecciones de ropa
-document.getElementById('confirmarCamiseta').addEventListener('click', () => {
-    alert('Has confirmado una camiseta.');
-});
-  
-document.getElementById('confirmarPantalon').addEventListener('click', () => {
-    alert('Has confirmado un pantalón.');
-});
-  
-document.getElementById('confirmarChaqueta').addEventListener('click', () => {
-    alert('Has confirmado una chaqueta.');
-});
-
-// Esperamos a que el contenido esté cargado para ocultar el texto
 document.addEventListener("DOMContentLoaded", function () {
-    const texto = document.getElementById("Texto_Desaparecer");
+    const textoDesaparecer = document.getElementById("Texto_Desaparecer");
     const nombreEmpresa = document.getElementById("Nombre_Empresa");
   
+    // Asegurarse de que Nombre_Empresa esté inicialmente oculto
+    if (nombreEmpresa) {
+      nombreEmpresa.style.display = "none";
+    }
+  
     function iniciarTransicion() {
-      if (texto) {
-        texto.style.opacity = "0";
+      if (textoDesaparecer) {
+        textoDesaparecer.style.opacity = "0";
         setTimeout(() => {
-          texto.style.display = "none";
-          nombreEmpresa.classList.add("aparece");
+          textoDesaparecer.style.display = "none";
+          // Mostrar Nombre_Empresa al hacerlo visible
+          if (nombreEmpresa) {
+            nombreEmpresa.style.display = "block"; // Asegura que se muestre
+            nombreEmpresa.classList.add("aparece");
+          }
         }, 500);
       }
   
@@ -41,6 +34,15 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("touchstart", iniciarTransicion);
   });
   
+  // Confirmar las selecciones de ropa (esta parte no se modificó)
+  document.getElementById('confirmarCamiseta').addEventListener('click', () => {
+    alert('Has confirmado una camiseta.');
+  });
   
+  document.getElementById('confirmarPantalon').addEventListener('click', () => {
+    alert('Has confirmado un pantalón.');
+  });
   
-  
+  document.getElementById('confirmarChaqueta').addEventListener('click', () => {
+    alert('Has confirmado una chaqueta.');
+  });
