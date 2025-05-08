@@ -46,3 +46,11 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('confirmarChaqueta').addEventListener('click', () => {
     alert('Has confirmado una chaqueta.');
   });
+  
+  document.getElementById('confirmarPantalon').addEventListener('click', () => {
+    alert('Has confirmado un pantalón.');
+  });
+  
+  document.getElementById('confirmarChaqueta').addEventListener('click', () => {
+    alert('Has confirmado una chaqueta.');
+  });
