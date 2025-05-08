@@ -1,6 +1,6 @@
 /* Fondo de pantalla inicial */
 body {
-    background: linear-gradient(to bottom, #000000, #007cba); /* Degradado negro a azul */
+    background: linear-gradient(to bottom, #000000, #01925d); /* Degradado negro a azul */
     background-size: cover; /* Hace que el fondo cubra toda la pantalla */
     background-repeat: no-repeat; /* No se repite el fondo */
     background-position: center; /* Centra el fondo */
@@ -10,17 +10,27 @@ body {
   }
   
   /* Animación del título */
-  h1 {
+  .click_aqui {
     font-family: 'Monaco', 'Lucida Console', 'Andale Mono', monospace;
-    color: rgb(255, 253, 113);
+    color: white;
+    font-size: 144px;
+    text-align: center;
+    font-weight: bold;
+    opacity: 0;
+    animation: aparecerDesaparecer 5s ease-in-out forwards;
+  }
+  .nombre_empresa{
+    font-family: 'Monaco', 'Lucida Console', 'Andale Mono', monospace;
+    color: rgb(255, 255, 255);
     font-size: 144px;
     text-align: center;
     font-weight: bold;
   
     /* Animación de entrada */
     opacity: 0;
+  }
+  .aparece {
     animation: aparecer 2s ease-in forwards;
-    animation-delay: 2s;
   }
   
   @keyframes aparecer {
@@ -33,4 +43,11 @@ body {
       transform: translateY(0);
     }
   }
+  @keyframes desaparecer {
+    0% {opacity: 0;}
+    10% {opacity: 1;}
+    90% {opacity: 1;}
+    100% {opacity: 0;}
+  }
+
   
