@@ -27,12 +27,12 @@ html, body {
   .nombre_empresa{
     position: fixed;
     top: 10px; /* o más si lo ves muy pegado */
-    left: 25%; /* centrado horizontalmente */
+    left: 50%; /* centrado horizontalmente */
     transform: translateX(-50%);
     z-index: 999;
     font-family: 'Orbitron', sans-serif;
     color: rgb(255, 255, 255);
-    font-size: 64px;
+    font-size: 80px;
     text-align: center;
     font-weight: bold;
   
