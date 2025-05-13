@@ -46,14 +46,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target); // Quita el observador si solo quieres animarlo una vez
+          entry.target.classList.add('aparicion_lateral_visible');
+          observer.unobserve(entry.target);
         }
       });
     }, {
       root: null,
       rootMargin: '0px',
-      threshold: 0.1 // Con que el 10% del elemento esté visible, se activa
+      threshold: 0.1
     });
   
     elements.forEach(el => observer.observe(el));

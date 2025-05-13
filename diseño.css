@@ -8,6 +8,7 @@ html, body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  min-height: 200vh;
   font-family: 'Orbitron', sans-serif;
   color: white;
 }
@@ -43,7 +44,7 @@ html, body {
     will-change: opacity, transform;
     overflow: visible;
   }
-  .aparcion_leteral_visible{
+  .aparcion_lateral_visible{
     opacity: 1;
     transform: translateX(0);
   }
@@ -63,6 +64,11 @@ html, body {
     10% {opacity: 1;}
     90% {opacity: 1;}
     100% {opacity: 0;}
+  }
+  @media (max-width: 768px) {
+    .aparicion_lateral {
+      transform: translateX(0); /* O menos desplazamiento */
+    }
   }
 
   
