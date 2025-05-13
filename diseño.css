@@ -1,6 +1,6 @@
 /* Fondo de pantalla inicial */
 body {
-    background: linear-gradient(to bottom, #000000, #01925d); /* Degradado negro a azul */
+    background: linear-gradient(to bottom, #01925d),  #000000; /* Degradado negro a azul */
     background-size: cover; /* Hace que el fondo cubra toda la pantalla */
     background-repeat: no-repeat; /* No se repite el fondo */
     background-position: center; /* Centra el fondo */
@@ -11,7 +11,7 @@ body {
   
   /* Animación del título */
   .click_aqui {
-    font-family: 'Monaco', 'Lucida Console', 'Andale Mono', monospace;
+    font-family: 'Orbitron', sans-serif;
     color: white;
     font-size: 144px;
     text-align: center;
@@ -20,7 +20,7 @@ body {
     animation: desaparecer 5s ease-in-out forwards;  /* Cambié de 'aparecerDesaparecer' a 'aparecer' */
   }
   .nombre_empresa{
-    font-family: 'Monaco', 'Lucida Console', 'Andale Mono', monospace;
+    font-family: 'Orbitron', sans-serif;
     color: rgb(255, 255, 255);
     font-size: 144px;
     text-align: center;
