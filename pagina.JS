@@ -2,22 +2,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const texto = document.getElementById("Texto_Desaparecer");
   const nombre = document.getElementById("Nombre_Empresa");
 
-  // Aplicar animación de aparición + espera automática
+  // Hacer aparecer el texto inicial
   texto.style.animation = "aparecer 2s ease-in forwards";
 
-  // Al hacer clic o tocar, desaparecer el texto y mostrar el nombre
   function manejarClick() {
+    // Desaparecer el texto con la animación
     texto.style.animation = "desaparecer 2s ease-in-out forwards";
 
-    // Cuando termine la animación de desaparecer...
     texto.addEventListener("animationend", function handler() {
-      texto.style.display = "none"; // lo ocultamos
-      nombre.classList.add("aparece"); // animamos el nombre
-
-      texto.removeEventListener("animationend", handler); // limpieza
+      texto.style.display = "none";
+      nombre.classList.add("aparece"); // Activamos la animación del nombre
+      texto.removeEventListener("animationend", handler);
     });
 
-    // Quitar los listeners para no repetir
+    // Evitar múltiples clics
     document.removeEventListener("click", manejarClick);
     document.removeEventListener("touchstart", manejarClick);
   }
@@ -25,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("click", manejarClick);
   document.addEventListener("touchstart", manejarClick);
 });
+
 
   
   // Confirmar las selecciones de ropa (esta parte no se modificó)
