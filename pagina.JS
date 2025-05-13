@@ -40,3 +40,21 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('confirmarChaqueta').addEventListener('click', () => {
     alert('Has confirmado una chaqueta.');
   });
+  document.addEventListener("DOMContentLoaded", function () {
+    const elements = document.querySelectorAll('.aparicion_lateral');
+  
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Quita el observador si solo quieres animarlo una vez
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1 // Con que el 10% del elemento esté visible, se activa
+    });
+  
+    elements.forEach(el => observer.observe(el));
+  });
