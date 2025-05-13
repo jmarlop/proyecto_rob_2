@@ -17,7 +17,7 @@ body {
     text-align: center;
     font-weight: bold;
     opacity: 0;
-    animation: aparecer 5s ease-in-out forwards;  /* Cambié de 'aparecerDesaparecer' a 'aparecer' */
+    animation: desaparecer 5s ease-in-out forwards;  /* Cambié de 'aparecerDesaparecer' a 'aparecer' */
   }
   .nombre_empresa{
     font-family: 'Monaco', 'Lucida Console', 'Andale Mono', monospace;
