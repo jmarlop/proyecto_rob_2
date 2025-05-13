@@ -1,12 +1,14 @@
 /* Fondo de pantalla inicial */
-body {
-    background: linear-gradient(to bottom, #01925d),  #000000; /* Degradado negro a azul */
-    background-size: cover; /* Hace que el fondo cubra toda la pantalla */
-    background-repeat: no-repeat; /* No se repite el fondo */
-    background-position: center; /* Centra el fondo */
-    height: 100vh; /* Asegura que el fondo cubra toda la altura de la pantalla */
-    margin: 0; /* Elimina márgenes */
+html, body {
+    height: 100%;
+    margin: 0;
     padding: 0;
+    background: linear-gradient(to bottom, #01925d),  #000000; /* Degradado negro a azul */
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Hace que el fondo se mantenga al hacer scroll */
+    background-size: cover;
+    background-position: center;
+    color: white;
   }
   
   /* Animación del título */

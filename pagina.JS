@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
           document.removeEventListener("touchstart", desaparecerTexto);
           // Muestra el nombre de la empresa con animación
           document.getElementById("Nombre_Empresa").classList.add("aparece");
+          document.getElementById("Nombre_Empresa").style.display = "block";  // Asegúrate de que el nombre de la empresa esté visible
       }
   }
 
