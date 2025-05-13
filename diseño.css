@@ -26,7 +26,7 @@ html, body {
   }
   .nombre_empresa{
     position: fixed;
-    top: 40px; /* o más si lo ves muy pegado */
+    top: 10px; /* o más si lo ves muy pegado */
     left: 50%; /* centrado horizontalmente */
     transform: translateX(-50%);
     z-index: 999;
