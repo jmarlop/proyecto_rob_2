@@ -1,28 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
   const texto = document.getElementById("Texto_Desaparecer");
-  const nombre = document.getElementById("Nombre_Empresa");
 
-  // Hacer aparecer el texto inicial
-  texto.style.animation = "aparecer 2s ease-in forwards";
-
-  function manejarClick() {
-    // Desaparecer el texto con la animación
-    texto.style.animation = "desaparecer 2s ease-in-out forwards";
-
-    texto.addEventListener("animationend", function handler() {
-      texto.style.display = "none";
-      nombre.classList.add("aparece"); // Activamos la animación del nombre
-      texto.removeEventListener("animationend", handler);
-    });
-
-    // Evitar múltiples clics
-    document.removeEventListener("click", manejarClick);
-    document.removeEventListener("touchstart", manejarClick);
+  function desaparecerTexto() {
+      if (texto) {
+          texto.style.display = "none";  // Desaparece el texto
+          document.removeEventListener("click", desaparecerTexto);  // Elimina el evento
+          document.removeEventListener("touchstart", desaparecerTexto);
+          // Muestra el nombre de la empresa con animación
+          document.getElementById("Nombre_Empresa").classList.add("aparece");
+      }
   }
 
-  document.addEventListener("click", manejarClick);
-  document.addEventListener("touchstart", manejarClick);
+  // Espera a un clic para desaparecer el texto
+  document.addEventListener("click", desaparecerTexto);
+  document.addEventListener("touchstart", desaparecerTexto);
 });
+
 
 
   
