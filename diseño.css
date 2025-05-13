@@ -26,8 +26,8 @@ html, body {
   }
   .nombre_empresa{
     position: fixed;
-    top: 20px; /* ajusta según prefieras */
-    left: 50%;
+    top: 0px; /* ajusta según prefieras */
+    left: 0%;
     transform: translateX(-50%);
     z-index: 999;
     font-family: 'Orbitron', sans-serif;
