@@ -1,5 +1,5 @@
 // MQTT (Paho MQTT Client)
-const client = new Paho.MQTT.Client("broker.hivemq.com", 8000, "webclient_" + parseInt(Math.random() * 1000));
+/*const client = new Paho.MQTT.Client("broker.hivemq.com", 8000, "webclient_" + parseInt(Math.random() * 1000));
 
 client.connect({
   onSuccess: onConnect,
@@ -20,7 +20,7 @@ function enviarPedido(tipo, cantidad) {
   message.destinationName = "hyperpack/pedido";
   client.send(message);
 }
-
+*/
 // Primer DOMContentLoaded: texto desaparece y aparece nombre empresa
 document.addEventListener("DOMContentLoaded", function () {
   const texto = document.getElementById("Texto_Desaparecer");
