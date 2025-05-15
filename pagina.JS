@@ -1,18 +1,28 @@
-// MQTT (Paho MQTT Client)
-/*const client = new Paho.MQTT.Client("broker.hivemq.com", 8000, "webclient_" + parseInt(Math.random() * 1000));
+// Crear cliente MQTT
+const client = new Paho.MQTT.Client("broker.hivemq.com", 8000, "webclient_" + parseInt(Math.random() * 1000));
 
-client.connect({
-  onSuccess: onConnect,
-  onFailure: e => console.log("Error de conexión:", e)
-});
-
+// Función que se llama al conectar correctamente
 function onConnect() {
   console.log("Conectado a MQTT");
 }
 
+// Función que se llama si falla la conexión MQTT
+function onFailure(error) {
+  console.error("Error de conexión MQTT:", error);
+  // Aquí solo logueamos el error, no interrumpimos nada
+}
+
+// Conectar con manejo explícito de error
+client.connect({
+  onSuccess: onConnect,
+  onFailure: onFailure,
+  timeout: 5 // opcional, para que falle rápido si no conecta
+});
+
+// Función para enviar pedido MQTT solo si conectado
 function enviarPedido(tipo, cantidad) {
   if (!client.isConnected()) {
-    console.error("No conectado al broker MQTT.");
+    console.warn("No conectado al broker MQTT. Pedido no enviado.");
     return;
   }
   const pedido = JSON.stringify({ tipo, cantidad });
@@ -20,8 +30,8 @@ function enviarPedido(tipo, cantidad) {
   message.destinationName = "hyperpack/pedido";
   client.send(message);
 }
-*/
-// Primer DOMContentLoaded: texto desaparece y aparece nombre empresa
+
+// Primer DOMContentLoaded: Animaciones de texto
 document.addEventListener("DOMContentLoaded", function () {
   const texto = document.getElementById("Texto_Desaparecer");
 
@@ -38,9 +48,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.addEventListener("click", desaparecerTexto);
   document.addEventListener("touchstart", desaparecerTexto);
-}); // Aquí cierra este DOMContentLoaded
+});
 
-// Segundo DOMContentLoaded: IntersectionObserver y botones
+// Segundo DOMContentLoaded: IntersectionObserver y listeners de botones
 document.addEventListener("DOMContentLoaded", function () {
   const elements = document.querySelectorAll('.aparicion_lateral');
 
@@ -55,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   elements.forEach(el => observer.observe(el));
 
-  // Listeners botones confirmación
   document.getElementById('confirmarCamiseta').addEventListener('click', () => {
     const cantidad = parseInt(document.getElementById('cantidadCamisetas').value) || 1;
     enviarPedido('camiseta', cantidad);
@@ -71,4 +80,3 @@ document.addEventListener("DOMContentLoaded", function () {
     enviarPedido('chaqueta', cantidad);
   });
 });
-
