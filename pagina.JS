@@ -21,7 +21,7 @@ function enviarPedido(tipo, cantidad) {
   client.send(message);
 }
 
-// Tu código original para desaparecer texto y animaciones intacto
+// Mantener animación y desaparecer texto correctamente
 document.addEventListener("DOMContentLoaded", function () {
   const texto = document.getElementById("Texto_Desaparecer");
 
@@ -35,10 +35,14 @@ document.addEventListener("DOMContentLoaded", function () {
       }
   }
 
+  // Cierre correcto aquí para que las animaciones no fallen
   document.addEventListener("click", desaparecerTexto);
   document.addEventListener("touchstart", desaparecerTexto);
+}); // <-- Aquí termina el DOMContentLoaded
 
-  // IntersectionObserver sin tocar
+// Aquí otro DOMContentLoaded para el IntersectionObserver y los listeners MQTT
+document.addEventListener("DOMContentLoaded", function () {
+  // Intersection Observer para las animaciones laterales
   const elements = document.querySelectorAll('.aparicion_lateral');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -52,10 +56,9 @@ document.addEventListener("DOMContentLoaded", function () {
     rootMargin: '0px',
     threshold: 0.1
   });
-
   elements.forEach(el => observer.observe(el));
 
-  // Aquí añadimos listeners extra para enviar MQTT sin eliminar ni modificar los que ya tenías
+  // Listeners para enviar el pedido MQTT sin tocar los alertas que ya tienes
   document.getElementById('confirmarCamiseta').addEventListener('click', () => {
     const cantidad = parseInt(document.getElementById('cantidadCamisetas').value) || 1;
     enviarPedido('camiseta', cantidad);
