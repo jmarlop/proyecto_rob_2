@@ -1,5 +1,5 @@
 // Crear cliente MQTT
-const client = new Paho.MQTT.Client("broker.hivemq.com", 8000, "webclient_" + parseInt(Math.random() * 1000));
+const client = new Paho.MQTT.Client("broker.emqx.io", 8000, "webclient_" + parseInt(Math.random() * 1000));
 
 // Función que se llama al conectar correctamente
 function onConnect() {
@@ -14,9 +14,9 @@ function onFailure(error) {
 
 // Conectar con manejo explícito de error
 client.connect({
+  userName: "PR2",
   onSuccess: onConnect,
-  onFailure: onFailure,
-  timeout: 5 // opcional, para que falle rápido si no conecta
+  onFailure: onFailure
 });
 
 // Función para enviar pedido MQTT solo si conectado
@@ -27,7 +27,7 @@ function enviarPedido(tipo, cantidad) {
   }
   const pedido = JSON.stringify({ tipo, cantidad });
   const message = new Paho.MQTT.Message(pedido);
-  message.destinationName = "hyperpack/pedido";
+  message.destinationName = "Ropa";
   client.send(message);
 }
 
