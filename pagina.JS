@@ -21,8 +21,9 @@ function enviarPedido(tipo, cantidad) {
   client.send(message);
 }
 
-// Mantener animación y desaparecer texto correctamente
+// TODO: Mete todo aquí dentro, para que el DOM esté cargado antes de manipular
 document.addEventListener("DOMContentLoaded", function () {
+  // Animación y desaparecer texto
   const texto = document.getElementById("Texto_Desaparecer");
 
   function desaparecerTexto() {
@@ -35,19 +36,16 @@ document.addEventListener("DOMContentLoaded", function () {
       }
   }
 
-  // Cierre correcto aquí para que las animaciones no fallen
   document.addEventListener("click", desaparecerTexto);
   document.addEventListener("touchstart", desaparecerTexto);
-}); // <-- Aquí termina el DOMContentLoaded
 
-// Aquí otro DOMContentLoaded para el IntersectionObserver y los listeners MQTT
-document.addEventListener("DOMContentLoaded", function () {
+  // IntersectionObserver para la animación lateral
   const elements = document.querySelectorAll('.aparicion_lateral');
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('aparicion_lateral_visible'); // NOMBRE CORRECTO
+        entry.target.classList.add('aparicion_lateral_visible');
         observer.unobserve(entry.target);
       }
     });
@@ -56,9 +54,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   elements.forEach(el => observer.observe(el));
-});
 
-  // Listeners para enviar el pedido MQTT sin tocar los alertas que ya tienes
+  // Listeners para enviar pedido MQTT
   document.getElementById('confirmarCamiseta').addEventListener('click', () => {
     const cantidad = parseInt(document.getElementById('cantidadCamisetas').value) || 1;
     enviarPedido('camiseta', cantidad);
