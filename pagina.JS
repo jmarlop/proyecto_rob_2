@@ -42,21 +42,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Aquí otro DOMContentLoaded para el IntersectionObserver y los listeners MQTT
 document.addEventListener("DOMContentLoaded", function () {
-  // Intersection Observer para las animaciones laterales
   const elements = document.querySelectorAll('.aparicion_lateral');
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('aparicion_lateral_visible');
+        entry.target.classList.add('aparicion_lateral_visible'); // NOMBRE CORRECTO
         observer.unobserve(entry.target);
       }
     });
   }, {
-    root: null,
-    rootMargin: '0px',
     threshold: 0.1
   });
+
   elements.forEach(el => observer.observe(el));
+});
 
   // Listeners para enviar el pedido MQTT sin tocar los alertas que ya tienes
   document.getElementById('confirmarCamiseta').addEventListener('click', () => {
