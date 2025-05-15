@@ -21,25 +21,27 @@ function enviarPedido(tipo, cantidad) {
   client.send(message);
 }
 
-// TODO: Mete todo aquí dentro, para que el DOM esté cargado antes de manipular
+// Primer DOMContentLoaded: texto desaparece y aparece nombre empresa
 document.addEventListener("DOMContentLoaded", function () {
-  // Animación y desaparecer texto
   const texto = document.getElementById("Texto_Desaparecer");
 
   function desaparecerTexto() {
-      if (texto) {
-          texto.style.display = "none";  // Desaparece el texto
-          document.removeEventListener("click", desaparecerTexto);
-          document.removeEventListener("touchstart", desaparecerTexto);
-          document.getElementById("Nombre_Empresa").classList.add("aparece");
-          document.getElementById("Nombre_Empresa").style.display = "block";
-      }
+    if (texto) {
+      texto.style.display = "none";
+      document.removeEventListener("click", desaparecerTexto);
+      document.removeEventListener("touchstart", desaparecerTexto);
+      const nombreEmpresa = document.getElementById("Nombre_Empresa");
+      nombreEmpresa.classList.add("aparece");
+      nombreEmpresa.style.display = "block";
+    }
   }
 
   document.addEventListener("click", desaparecerTexto);
   document.addEventListener("touchstart", desaparecerTexto);
+}); // Aquí cierra este DOMContentLoaded
 
-  // IntersectionObserver para la animación lateral
+// Segundo DOMContentLoaded: IntersectionObserver y botones
+document.addEventListener("DOMContentLoaded", function () {
   const elements = document.querySelectorAll('.aparicion_lateral');
 
   const observer = new IntersectionObserver((entries) => {
@@ -49,13 +51,11 @@ document.addEventListener("DOMContentLoaded", function () {
         observer.unobserve(entry.target);
       }
     });
-  }, {
-    threshold: 0.1
-  });
+  }, { threshold: 0.1 });
 
   elements.forEach(el => observer.observe(el));
 
-  // Listeners para enviar pedido MQTT
+  // Listeners botones confirmación
   document.getElementById('confirmarCamiseta').addEventListener('click', () => {
     const cantidad = parseInt(document.getElementById('cantidadCamisetas').value) || 1;
     enviarPedido('camiseta', cantidad);
@@ -71,3 +71,4 @@ document.addEventListener("DOMContentLoaded", function () {
     enviarPedido('chaqueta', cantidad);
   });
 });
+
