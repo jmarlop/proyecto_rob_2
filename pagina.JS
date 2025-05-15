@@ -1,5 +1,5 @@
 // Crear cliente MQTT
-/*const client = new Paho.MQTT.Client("broker.emqx.io", 9001, "webclient_" + parseInt(Math.random() * 1000));
+const client = new Paho.MQTT.Client("broker.emqx.io", 9001, "webclient_" + parseInt(Math.random() * 1000));
 
 // Función que se llama al conectar correctamente
 function onConnect() {
@@ -29,7 +29,7 @@ function enviarPedido(tipo, cantidad) {
   const message = new Paho.MQTT.Message(pedido);
   message.destinationName = "Ropa";
   client.send(message);
-}*/
+}
 
 // Primer DOMContentLoaded: Animaciones de texto
 document.addEventListener("DOMContentLoaded", function () {
