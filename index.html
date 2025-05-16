@@ -5,11 +5,11 @@
   <title>HYPERPARK</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="diseño.css">
-  <!-- ✅ Paho MQTT cargado antes, pero sin bloquear -->
-  <script src="paho-mqtt.js" defer></script>
 
-  <!-- ✅ Tu código que depende de Paho -->
-  <script src="pagina.JS" defer></script>
+
+
+  
+  
   
 </head>
 <body>
@@ -38,6 +38,8 @@
       <input type="number" id="cantidadChaquetas" min="1" max="10000" value="1">
     </div>
   </div>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script src="pagina.js"></script>
 
 </body>
 </html>

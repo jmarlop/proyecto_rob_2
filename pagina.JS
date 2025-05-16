@@ -1,35 +1,44 @@
-// Crear cliente MQTT
-const client = new PahoMQTT.Client("broker.emqx.io", 9001, "mqttx_dcbf89f" + parseInt(Math.random() * 1000));
-
-// Función que se llama al conectar correctamente
-function onConnect() {
-  console.log("Conectado a MQTT");
-}
-
-// Función que se llama si falla la conexión MQTT
-function onFailure(error) {
-  console.log("Error de conexión MQTT:", error);
-  // Aquí solo logueamos el error, no interrumpimos nada
-}
-
-// Conectar con manejo explícito de error
-client.connect({
-  userName: "PR2",
-  onSuccess: onConnect,
-  onFailure: onFailure
+// Crear cliente MQTT (usando WebSockets)
+const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt', {
+  clientId: 'mqttx_dcbf89f' + parseInt(Math.random() * 1000),
+  username: 'PR2'
 });
 
-// Función para enviar pedido MQTT solo si conectado
+// Al conectar exitosamente
+client.on('connect', function () {
+  console.log('✅ Conectado a MQTT con MQTT.js');
+});
+
+// Si hay un error de conexión
+client.on('error', function (error) {
+  console.log('❌ Error de conexión MQTT:', error);
+});
+
+// Enviar pedido (solo si conectado)
 function enviarPedido(tipo, cantidad) {
-  if (!client.isConnected()) {
-    console.warn("No conectado al broker MQTT. Pedido no enviado.");
+  if (!client.connected) {
+    console.warn("⚠️ No conectado al broker MQTT. Pedido no enviado.");
     return;
   }
+
   const pedido = JSON.stringify({ tipo, cantidad });
-  const message = new Paho.MQTT.Message(pedido);
-  message.destinationName = "Ropa";
-  client.send(message);
+  const topicBase = 'Ropa/';
+  const validTipos = ['camiseta', 'pantalon', 'chaqueta'];
+
+  if (validTipos.includes(tipo)) {
+    const topic = topicBase + tipo;
+    client.publish(topic, pedido, function (err) {
+      if (err) {
+        console.log('❌ Error al publicar el mensaje:', err);
+      } else {
+        console.log(`📤 Pedido enviado a ${topic}: ${pedido}`);
+      }
+    });
+  } else {
+    console.warn(`⚠️ Tipo de pedido inválido: ${tipo}`);
+  }
 }
+
 
 // Primer DOMContentLoaded: Animaciones de texto
 document.addEventListener("DOMContentLoaded", function () {
