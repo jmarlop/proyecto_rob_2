@@ -8,7 +8,7 @@ function onConnect() {
 
 // Función que se llama si falla la conexión MQTT
 function onFailure(error) {
-  console.error("Error de conexión MQTT:", error);
+  console.log("Error de conexión MQTT:", error);
   // Aquí solo logueamos el error, no interrumpimos nada
 }
 
