@@ -5,8 +5,12 @@
   <title>HYPERPARK</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="diseño.css">
-  <script src="mqttws31.min.js"></script>
-  <script src="js/mqttws31.min.js"></script>
+  <!-- ✅ Paho MQTT cargado antes, pero sin bloquear -->
+  <script src="paho-mqtt.js" defer></script>
+
+  <!-- ✅ Tu código que depende de Paho -->
+  <script src="pagina.JS" defer></script>
+  
 </head>
 <body>
   <h1 class="click_aqui" id="Texto_Desaparecer">Click para continuar</h1>
