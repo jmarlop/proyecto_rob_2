@@ -376,10 +376,14 @@ html, body {
       display: block;
     }
   
-    .texto_izquierda,
+    .texto_izquierda{
+      width: 90%;
+      margin-right: 30%;
+      text-align: justify;
+    }
     .texto_derecha {
       width: 90%;
-      margin: 0 auto;
+      margin-left: 30%;
       text-align: justify;
     }
   
@@ -401,7 +405,7 @@ html, body {
   
     .posicion-1 { --cuadro-top-mobile: 215%; --cuadro-left-mobile: 7%; }
     .posicion-2 { --cuadro-top-mobile: 215%; --cuadro-left-mobile: 37%; }
-    .posicion-3 { --cuadro-top-mobile: 215%; --cuadro-left-mobile: 37%; }
+    .posicion-3 { --cuadro-top-mobile: 215%; --cuadro-left-mobile: 67%; }
     .posicion-4 { --cuadro-top-mobile: 230%; --cuadro-left-mobile: 7%; }
     .posicion-5 { --cuadro-top-mobile: 230%; --cuadro-left-mobile: 37%; }
     .posicion-6 { --cuadro-top-mobile: 230%; --cuadro-left-mobile: 67%; }
@@ -436,7 +440,7 @@ html, body {
   
     .enlace_rubrica {
       font-size: 1.2rem;
-      margin-top: 300px;
+      margin-top: 500px;
       margin-bottom: 100px;
     }
   }
