@@ -363,14 +363,14 @@ html, body {
   
     .logo_bosque,
     .logo_planta {
-      width: 200px;
+      width: 350px;
       margin: 30px auto;
       display: block;
     }
   
     .logo_cientifico,
     .logo_ingeniero {
-      width: 600px;
+      width: 350px;
       float: none;
       margin: 20px auto;
       display: block;
@@ -399,12 +399,12 @@ html, body {
       position: absolute;
     }
   
-    .posicion-1 { --cuadro-top-mobile: 2000%; }
-    .posicion-2 { --cuadro-top-mobile: 200%; }
-    .posicion-3 { --cuadro-top-mobile: 200%; }
-    .posicion-4 { --cuadro-top-mobile: 225%; }
-    .posicion-5 { --cuadro-top-mobile: 225%; }
-    .posicion-6 { --cuadro-top-mobile: 225%; }
+    .posicion-1 { --cuadro-top-mobile: 215%; }
+    .posicion-2 { --cuadro-top-mobile: 215%; }
+    .posicion-3 { --cuadro-top-mobile: 215%; }
+    .posicion-4 { --cuadro-top-mobile: 230%; }
+    .posicion-5 { --cuadro-top-mobile: 230%; }
+    .posicion-6 { --cuadro-top-mobile: 230%; }
   
     #ropa {
       flex-direction: column;
