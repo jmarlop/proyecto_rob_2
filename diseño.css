@@ -242,12 +242,12 @@ html, body {
   }
 
   
-.posicion-1 {--cuadro-tiempo: 1s; top: 4200px; left: 90px;}
-.posicion-2 {--cuadro-tiempo: 2s; top: 4200px; left: 460px; }
-.posicion-3 {--cuadro-tiempo: 4s; top: 4200px; left: 820px; }
-.posicion-4 {--cuadro-tiempo: 6s; top: 4500px; left: 90px; }
-.posicion-5 {--cuadro-tiempo: 8s; top: 4500px; left: 460px; }
-.posicion-6 {--cuadro-tiempo: 10s; top: 4500px; left: 820px; }  
+.posicion-1 {--cuadro-tiempo: 1s; top: 585%; left: 7%;}
+.posicion-2 {--cuadro-tiempo: 2s; top: 585%; left: 37%; }
+.posicion-3 {--cuadro-tiempo: 4s; top: 585%; left: 67%; }
+.posicion-4 {--cuadro-tiempo: 6s; top: 625%; left: 7%; }
+.posicion-5 {--cuadro-tiempo: 8s; top: 625%; left: 37%; }
+.posicion-6 {--cuadro-tiempo: 10s; top: 625%; left: 67%; }  
 /* diseño de los botones de las cajas*/
 /* el # ropa facilita el modelo conjunto de las variables*/
 #ropa {
