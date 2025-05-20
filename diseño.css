@@ -378,12 +378,12 @@ html, body {
   
     .texto_izquierda{
       width: 90%;
-      margin-right: 30%;
+      margin-right: 60%;
       text-align: justify;
     }
     .texto_derecha {
       width: 90%;
-      margin-left: 30%;
+      margin-left: 60%;
       text-align: justify;
     }
   
