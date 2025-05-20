@@ -242,12 +242,12 @@ html, body {
   }
 
   
-.posicion-1 {--cuadro-tiempo: 1s; top: 585%; left: 7%;}
-.posicion-2 {--cuadro-tiempo: 2s; top: 585%; left: 37%; }
-.posicion-3 {--cuadro-tiempo: 4s; top: 585%; left: 67%; }
-.posicion-4 {--cuadro-tiempo: 6s; top: 625%; left: 7%; }
-.posicion-5 {--cuadro-tiempo: 8s; top: 625%; left: 37%; }
-.posicion-6 {--cuadro-tiempo: 10s; top: 625%; left: 67%; }  
+.posicion-1 {--cuadro-tiempo: 1s; top: 4200px; left: 90px;}
+.posicion-2 {--cuadro-tiempo: 2s; top: 4200px; left: 460px; }
+.posicion-3 {--cuadro-tiempo: 4s; top: 4200px; left: 820px; }
+.posicion-4 {--cuadro-tiempo: 6s; top: 4500px; left: 90px; }
+.posicion-5 {--cuadro-tiempo: 8s; top: 4500px; left: 460px; }
+.posicion-6 {--cuadro-tiempo: 10s; top: 4500px; left: 820px; }  
 /* diseño de los botones de las cajas*/
 /* el # ropa facilita el modelo conjunto de las variables*/
 #ropa {
@@ -336,5 +336,106 @@ html, body {
       transform: translateX(0); /* O menos desplazamiento */
     }
   }
+  @media (max-width: 1024px) {
+    #Texto_Desaparecer {
+      font-size: 72px;
+    }
+  
+    .nombre_empresa {
+      font-size: 64px;
+      top: 10%;
+    }
+  
+    .logo {
+      width: 80%;
+      margin: 0 auto;
+      display: block;
+      transform: rotate(90deg);
+    }
+  
+    .logo_bosque, .logo_planta {
+      width: 60%;
+      margin: 20px auto;
+      display: block;
+    }
+  
+    .logo_cientifico, .logo_ingeniero {
+      width: 60%;
+      float: none;
+      margin: 20px auto;
+      display: block;
+    }
+  
+    .texto_izquierda,
+    .texto_derecha,
+    .aparicion_lateral,
+    .aparicion_lateral_reves {
+      width: 90%;
+      margin: 40px auto;
+      transform: none;
+      opacity: 1 !important;
+    }
+  
+    .cuadro {
+      position: static;
+      margin: 40px auto;
+      transform: none !important;
+    }
+  
+    .cuadro:hover {
+      transform: rotateY(180deg);
+    }
+  
+    .posicion-1, .posicion-2, .posicion-3,
+    .posicion-4, .posicion-5, .posicion-6 {
+      top: auto !important;
+      left: auto !important;
+      margin: 40px auto;
+    }
+  
+    #ropa {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .card {
+      width: 90%;
+      max-width: 350px;
+    }
+  
+    .enlace_rubrica {
+      margin-top: 200px;
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #Texto_Desaparecer {
+      font-size: 48px;
+    }
+  
+    .nombre_empresa {
+      font-size: 42px;
+    }
+  
+    .card {
+      padding: 15px;
+      font-size: 14px;
+    }
+  
+    .cara {
+      font-size: 10px;
+    }
+  
+    .cara-trasera button {
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+  
+    .cara-trasera input[type="number"] {
+      width: 80%;
+    }
+  }
+  
 
   
