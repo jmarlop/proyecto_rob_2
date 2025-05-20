@@ -497,4 +497,51 @@ html, body {
   }
   
 
+  @media (max-width: 1024px) {
+    /* Contenedor padre para que perspective funcione */
+    body, html {
+      perspective: 800px; /* perspectiva para efecto 3D */
+    }
+  
+    .cuadro {
+      position: relative !important;  /* cambia a relativo en móvil para que no use top/left */
+      width: 90vw !important;
+      max-width: 320px !important;
+      height: 220px !important;
+      margin: 20px auto !important;
+      left: auto !important;
+      top: auto !important;
+      perspective: 1000px; /* perspectiva interna */
+      transform-style: preserve-3d;
+      transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+      z-index: 1;
+    }
+  
+    .cuadro:hover {
+      z-index: 10; /* encima de otros elementos */
+      transform: rotateY(180deg) scale(1.05) !important;
+    }
+  
+    .cara-frontal, .cara-trasera {
+      width: 100% !important;
+      height: 100% !important;
+      backface-visibility: hidden !important;
+      position: absolute !important;
+      top: 0;
+      left: 0;
+      border-radius: 10px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+  
+    .cara-frontal {
+      background: linear-gradient(145deg, #1e90ff, #00ccff) !important;
+      transform: rotateY(0deg) !important;
+    }
+  
+    .cara-trasera {
+      background: linear-gradient(145deg, #ff9147, #ff4791) !important;
+      transform: rotateY(180deg) !important;
+    }
+  }
   
