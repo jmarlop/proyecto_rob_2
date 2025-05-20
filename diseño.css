@@ -11,6 +11,7 @@ html, body {
   min-height: 200vh;
   font-family: 'Orbitron', sans-serif;
   color: #1C2A33;
+  
 }
 
   
@@ -336,7 +337,7 @@ html, body {
       transform: translateX(0); /* O menos desplazamiento */
     }
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     html, body {
       background-size: auto;
       font-size: 14px;
