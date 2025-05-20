@@ -390,24 +390,20 @@ html, body {
     }
   
     .cuadro {
-      width: 90vw;
-      height: 250px;
-      left: 5%;
-      top: auto;
-      margin-bottom: 30px;
-      position: relative;
+      width: 220px;
+      height: 160px;
+      left: 50% !important;
+      top: var(--cuadro-top-mobile, 100%); /* posición vertical adaptable */
+      transform: translateX(-50%);
+      position: absolute;
     }
   
-    .posicion-1,
-    .posicion-2,
-    .posicion-3,
-    .posicion-4,
-    .posicion-5,
-    .posicion-6 {
-      top: auto;
-      left: auto;
-      position: static;
-    }
+    .posicion-1 { --cuadro-top-mobile: 150%; }
+    .posicion-2 { --cuadro-top-mobile: 150%; }
+    .posicion-3 { --cuadro-top-mobile: 150%; }
+    .posicion-4 { --cuadro-top-mobile: 175%; }
+    .posicion-5 { --cuadro-top-mobile: 175%; }
+    .posicion-6 { --cuadro-top-mobile: 175%; }
   
     #ropa {
       flex-direction: column;
