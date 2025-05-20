@@ -391,12 +391,12 @@ html, body {
     }
   
     .cuadro {
+      position: absolute;
+      top: var(--cuadro-top-mobile);
+      left: var(--cuadro-left-mobile);
+      transform: translateX(-50%);
       width: 220px;
       height: 160px;
-      left: 50% !important;
-      top: var(--cuadro-top-mobile, 100%); /* posición vertical adaptable */
-      transform: translateX(-50%);
-      position: absolute;
     }
   
     .posicion-1 { --cuadro-top-mobile: 215%; --cuadro-left-mobile: 7%; }
