@@ -349,7 +349,7 @@ html, body {
   
     .nombre_empresa {
       font-size: 48px;
-      top: 10%;
+      top: 0%;
       transform: translateX(0%) translateY(400px);
     }
   
@@ -399,12 +399,12 @@ html, body {
       position: absolute;
     }
   
-    .posicion-1 { --cuadro-top-mobile: 215%; }
-    .posicion-2 { --cuadro-top-mobile: 215%; }
-    .posicion-3 { --cuadro-top-mobile: 215%; }
-    .posicion-4 { --cuadro-top-mobile: 230%; }
-    .posicion-5 { --cuadro-top-mobile: 230%; }
-    .posicion-6 { --cuadro-top-mobile: 230%; }
+    .posicion-1 { --cuadro-top-mobile: 215%; --cuadro-left-mobile: 7%; }
+    .posicion-2 { --cuadro-top-mobile: 215%; --cuadro-left-mobile: 37%; }
+    .posicion-3 { --cuadro-top-mobile: 215%; --cuadro-left-mobile: 37%; }
+    .posicion-4 { --cuadro-top-mobile: 230%; --cuadro-left-mobile: 7%; }
+    .posicion-5 { --cuadro-top-mobile: 230%; --cuadro-left-mobile: 37%; }
+    .posicion-6 { --cuadro-top-mobile: 230%; --cuadro-left-mobile: 67%; }
   
     #ropa {
       flex-direction: column;
