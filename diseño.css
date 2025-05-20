@@ -336,142 +336,66 @@ html, body {
       transform: translateX(0); /* O menos desplazamiento */
     }
   }
-  @media (max-width: 1024px) {
+  @media (max-width: 768px) {
+    html, body {
+      background-size: auto;
+      font-size: 14px;
+    }
+  
     #Texto_Desaparecer {
-      font-size: 72px;
+      font-size: 48px;
     }
   
     .nombre_empresa {
-      font-size: 64px;
+      font-size: 48px;
       top: 10%;
+      transform: translateX(0%) translateY(400px);
     }
   
     .logo {
-      width: 80%;
-      margin: 0 auto;
-      display: block;
-      transform: rotate(90deg);
-    }
-  
-    .logo_bosque, .logo_planta {
-      width: 60%;
-      margin: 20px auto;
+      width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: -200px;
       display: block;
     }
   
-    .logo_cientifico, .logo_ingeniero {
-      width: 60%;
+    .logo_bosque,
+    .logo_planta {
+      width: 200px;
+      margin: 30px auto;
+      display: block;
+    }
+  
+    .logo_cientifico,
+    .logo_ingeniero {
+      width: 200px;
       float: none;
       margin: 20px auto;
       display: block;
     }
   
     .texto_izquierda,
-    .texto_derecha,
-    .aparicion_lateral,
-    .aparicion_lateral_reves {
+    .texto_derecha {
       width: 90%;
-      margin: 40px auto;
-      transform: none;
-      opacity: 1 !important;
-    }
-  
-    .cuadro {
-      position: static;
-      margin: 40px auto;
-      transform: none !important;
-    }
-  
-    .cuadro:hover {
-      transform: rotateY(180deg);
-    }
-  
-    .posicion-1, .posicion-2, .posicion-3,
-    .posicion-4, .posicion-5, .posicion-6 {
-      top: auto !important;
-      left: auto !important;
-      margin: 40px auto;
-    }
-  
-    #ropa {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .card {
-      width: 90%;
-      max-width: 350px;
-    }
-  
-    .enlace_rubrica {
-      margin-top: 200px;
-      font-size: 1.2rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    #Texto_Desaparecer {
-      font-size: 48px;
-    }
-  
-    .nombre_empresa {
-      font-size: 42px;
-    }
-  
-    .card {
-      padding: 15px;
-      font-size: 14px;
-    }
-  
-    .cara {
-      font-size: 10px;
-    }
-  
-    .cara-trasera button {
-      padding: 8px 10px;
-      font-size: 12px;
-    }
-  
-    .cara-trasera input[type="number"] {
-      width: 80%;
-    }
-  }
-  @media (max-width: 1024px) {
-    .logo {
-      width: 100%;
-      margin-top: -200px;
-      margin-left: 0;
-      transform: rotate(90deg);
-    }
-  
-    .logo_bosque, .logo_planta {
-      width: 80%;
-      margin-left: auto;
-      margin-right: auto;
-      display: block;
-      margin-top: -100px;
-    }
-  
-    .logo_cientifico, .logo_ingeniero {
-      width: 80%;
-      float: none;
-      margin: 20px auto;
-      display: block;
-    }
-  
-    .texto_izquierda, .texto_derecha {
-      width: 90%;
-      margin: 20px auto;
+      margin: 0 auto;
       text-align: justify;
     }
   
+    .aparicion_lateral,
+    .aparicion_lateral_reves {
+      margin: 100px 0;
+      padding: 10px;
+      transform: translateX(0);
+    }
+  
     .cuadro {
-      position: relative;
-      width: 90%;
+      width: 90vw;
       height: 250px;
-      margin: 40px auto;
-      top: auto !important;
-      left: auto !important;
+      left: 5%;
+      top: auto;
+      margin-bottom: 30px;
+      position: relative;
     }
   
     .posicion-1,
@@ -480,68 +404,43 @@ html, body {
     .posicion-4,
     .posicion-5,
     .posicion-6 {
-      top: auto !important;
-      left: auto !important;
+      top: auto;
+      left: auto;
+      position: static;
     }
   
     #ropa {
       flex-direction: column;
-      align-items: center;
       gap: 20px;
+      align-items: center;
       margin-top: 20px;
     }
   
     .card {
       width: 90%;
-    }
-  }
-  
-
-  @media (max-width: 1024px) {
-    /* Contenedor padre para que perspective funcione */
-    body, html {
-      perspective: 800px; /* perspectiva para efecto 3D */
+      padding: 15px;
+      font-size: 14px;
     }
   
-    .cuadro {
-      position: relative !important;  /* cambia a relativo en móvil para que no use top/left */
-      width: 90vw !important;
-      max-width: 320px !important;
-      height: 220px !important;
-      margin: 20px auto !important;
-      left: auto !important;
-      top: auto !important;
-      perspective: 1000px; /* perspectiva interna */
-      transform-style: preserve-3d;
-      transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1);
-      z-index: 1;
+    .cara {
+      font-size: 10px;
+      padding: 15px;
     }
   
-    .cuadro:hover {
-      z-index: 10; /* encima de otros elementos */
-      transform: rotateY(180deg) scale(1.05) !important;
+    .cara-trasera button {
+      font-size: 12px;
+      padding: 8px 12px;
     }
   
-    .cara-frontal, .cara-trasera {
-      width: 100% !important;
-      height: 100% !important;
-      backface-visibility: hidden !important;
-      position: absolute !important;
-      top: 0;
-      left: 0;
-      border-radius: 10px;
-      padding: 20px;
-      box-sizing: border-box;
+    .cara-trasera input[type="number"] {
+      width: 80%;
+      padding: 6px;
     }
   
-    .cara-frontal {
-      background: linear-gradient(145deg, #1e90ff, #00ccff) !important;
-      transform: rotateY(0deg) !important;
-    }
-  
-    .cara-trasera {
-      background: linear-gradient(145deg, #ff9147, #ff4791) !important;
-      transform: rotateY(180deg) !important;
+    .enlace_rubrica {
+      font-size: 1.2rem;
+      margin-top: 300px;
+      margin-bottom: 100px;
     }
   }
   
