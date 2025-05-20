@@ -3,61 +3,318 @@ html, body {
   margin: 0;
   padding: 0;
   min-height: 100%;
-  background: linear-gradient(135deg, #000000, #01925d); /* Degradado diagonal */
+  background: linear-gradient(135deg,#00BFFF, #FFA07A, #FFD700); /* Degradado diagonal */
   background-attachment: fixed; /* El fondo no se mueve al hacer scroll */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   min-height: 200vh;
   font-family: 'Orbitron', sans-serif;
-  color: white;
+  color: #1C2A33;
 }
 
   
   /* Animación del título */
-  .click_aqui {
+  #Texto_Desaparecer {
     font-family: 'Orbitron', sans-serif;
-    color: white;
+    color: linear-gradient(55deg,#fb61f6, #7aff7a);
     font-size: 144px;
     text-align: center;
     font-weight: bold;
-    opacity: 0;
-    animation: desaparecer 5s ease-in-out forwards;  /* Cambié de 'aparecerDesaparecer' a 'aparecer' */
+    opacity: 1;
+    transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+    will-change: transform, opacity;
+    position: relative; /* importante para que el transform funcione correctamente */
   }
-  .nombre_empresa{
-    background: rgb(255, 0, 0);
-    position: fixed;
-    width: 100%;/* centrado horizontalmente */
-    transform: translateX(-50%);
+  
+  .elevar_desaparecer {
+    transform: translateY(-150vh); /* se desplaza completamente fuera de pantalla */
+    opacity: 0;
+  }
+
+
+  .nombre_empresa {
+    top: 20%; /* o el porcentaje que quieras para la posición vertical */
+    left: 0%; /* centrado horizontal */
+    transform: translateX(0%) translateY(1000px);
     z-index: 999;
     font-family: 'Orbitron', sans-serif;
-    color: rgb(255, 255, 255);
+    background: linear-gradient(235deg, #4c39f5, #ef3f0f);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 3rem;
     font-size: 110px;
     text-align: center;
     font-weight: bold;
+    
   
-    /* Animación de entrada */
     opacity: 0;
+    transition: transform 1.2s ease 0.2s, opacity 1.2s ease 0.2s;
+    display: none;
   }
+  
+  .logo {
+    margin-left: 15px;
+    margin-top: -420px;
+    width: 950px; /* ajusta el tamaño según necesites */
+    transform: rotate(90deg);
+  }
+  .logo_bosque{
+    margin-left: 740px;
+    margin-top: -180px;
+    width: 450px; /* ajusta el tamaño según necesites */
+  }
+  .logo_cientifico{
+    width: 450px;
+    float: left;
+    margin-right: 30px; /* Espacio entre imagen y texto */
+    margin-top: -35px;
+    /* ajusta el tamaño según necesites */
+  }
+  .logo_planta{
+    margin-left: 740px;
+    margin-top: -300px;
+    width: 450px;
+  }
+  .logo_ingeniero{
+    width: 500px;
+    float: left;
+    margin-right: 30px; /* Espacio entre imagen y texto */
+    margin-top: 15px;
+  }
+  .elevar_aparece {
+    opacity: 1;
+    transform: translateX(0%) translateY(0%);
+    display: block;
+  }
+
+  
   .aparece {
     animation: aparecer 2s ease-in forwards;
   }
-  .aparicion_lateral{
+  .texto_izquierda{
+    text-align: justify;
+
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    will-change: opacity, transform;
+
+    /* Layout / forma del cuadro */
+    width: 60%;             /* ancho del área de texto */
+    margin-left: 240px;     /* espacio a la izquierda para la foto */
+    min-height: 200px;      /* altura mínima si quieres que tenga forma de cuadro */
+    padding: 10px;
+
+    /* Extra opcional */
+    overflow: visible;
+    box-sizing: border-box;
+  }
+
+  .texto_derecha{
+    text-align: justify;
     
     opacity: 0;
     transform: translateX(-50px);
     transition: opacity 1s ease-out, transform 1s ease-out;
     will-change: opacity, transform;
+
+    /* Layout: cuadro a la derecha dejando espacio a la izquierda */
+    width: 100%;
+    margin-left: 500px;     /* Empuja el bloque a la derecha */
+    margin-right: 1200px;       /* Alineado al borde derecho o al contenedor */
+    min-height: 100px;
+    padding: 10px;
+
     overflow: visible;
-    margin: 1000px 0;
-    border: 1px dashed white; /* Solo para ver bien los bloques */
+    box-sizing: border-box;
+  }
+  .aparicion_lateral{
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    will-change: opacity, transform;
+    overflow: visible;
+    margin: 500px 0;
     padding: 10px;
   }
-  .aparicion_lateral_visible{
+  .aparicion_lateral_visible {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0); /* entra en su posición natural */
   }
   
+  .desaparece_derecha {
+    opacity: 0;
+    transform: translateX(100px); /* desaparece desplazándose a la derecha */
+    transition: opacity 0.6s ease-in, transform 0.6s ease-in;
+  }
+  .aparicion_lateral_reves{
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    will-change: opacity, transform;
+    overflow: visible;
+    margin: 500px 0;
+    padding: 10px;
+  }
+  .aparicion_lateral_visible_reves {
+    opacity: 1;
+    transform: translateX(0); /* entra en su posición natural */
+  }
+  
+  .desaparece_reves {
+    opacity: 0;
+    transform: translateX(-100px); /* desaparece desplazándose a la derecha */
+    transition: opacity 0.6s ease-in, transform 0.6s ease-in;
+  }
+
+  /*comienzo de los giros de caras*/
+  :root {
+    --cuadro-left: 100px;
+    --cuadro-top: 200px;
+  }
+  
+  .cuadro {
+    width: 300px;
+    height: 220px;
+    position: absolute; /* permite moverlo por la pantalla */
+    top: var(--cuadro-top);
+    left: var(--cuadro-left);
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform var(--cuadro-tiempo, 1s) cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .cuadro.volteado {
+    transform: rotateY(180deg) rotateZ(0deg) scale(1.03);
+  }
+  
+  .cara {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px linear-gradient(145deg, #ea54b1, #3aff75);
+    flex-direction: column; /* permite que haya título + contenido debajo */
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    }
+  
+  .cara-frontal {
+    background: linear-gradient(145deg, #1e90ff, #00ccff);
+    transform: rotateY(0deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  
+  .cara-trasera {
+    background: linear-gradient(145deg, #ff9147, #ff4791);
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box ;
+    text-align: center;
+  }
+  .cuadro:hover {
+    transform: scale(1.10) rotateY(180deg) rotateZ(0.0deg);
+    z-index: 10; /* para que esté por encima si se superponen */
+  }
+
+  
+.posicion-1 {--cuadro-tiempo: 1s; top: 4200px; left: 90px;}
+.posicion-2 {--cuadro-tiempo: 2s; top: 4200px; left: 460px; }
+.posicion-3 {--cuadro-tiempo: 4s; top: 4200px; left: 820px; }
+.posicion-4 {--cuadro-tiempo: 6s; top: 4500px; left: 90px; }
+.posicion-5 {--cuadro-tiempo: 8s; top: 4500px; left: 460px; }
+.posicion-6 {--cuadro-tiempo: 10s; top: 4500px; left: 820px; }  
+/* diseño de los botones de las cajas*/
+/* el # ropa facilita el modelo conjunto de las variables*/
+#ropa {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+.card {
+  background: #1e1e1e;
+  color: white;
+  border: 2px solid #00ffff;
+  border-radius: 15px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 8px 20px rgba(0, 255, 255, 0.2);
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.cara-trasera h2 {
+  margin-bottom: 10px;
+}
+
+.cara-trasera button {
+  margin: 5px;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-family: 'Orbitron', sans-serif;
+  background-color: #00ffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cara-trasera button:hover {
+  background-color: #00cccc;
+}
+
+.cara-trasera input[type="number"] {
+  margin-top: 10px;
+  width: 60%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #fb00ff;
+}
+.enlace_rubrica {
+  display: block;              /* Hace que el enlace sea un bloque */
+  margin-top: 1300px;
+  margin-bottom: 200px;        /* Espacio entre el enlace y el resto del contenido */
+  text-align: center;
+  font-family: 'Impact', sans-serif;
+  font-size: 1.5rem;           /* (opcional) Mejora visual */
+  color: #1C2A33;              /* (opcional) Color de texto */
+  text-decoration: none;       /* Elimina subrayado por defecto */
+}
+.enlace_rubrica:hover {
+  text-decoration: underline;  /* Subrayado al pasar el ratón */
+}
   @keyframes aparecer {
     0% {
       opacity: 0;

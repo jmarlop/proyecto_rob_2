@@ -2,44 +2,143 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>HYPERPARK</title>
+  <title>HYPERPACK</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="diseño.css">
-
-
-
-  
-  
-  
+  <link rel="stylesheet" href="diseño.css">  
 </head>
 <body>
   <h1 class="click_aqui" id="Texto_Desaparecer">Click para continuar</h1>
-  <h1 class="nombre_empresa" id="Nombre_Empresa">HYPERPACK</h1>
-  <h3 class="deslice_continuar">Bienvenido deslice_continuar</h3>
-  <h1>Seleccione su tipo de ropa</h1>
-
-  <div id="ropa">
-    <div class = "aparicion_lateral" style="text-align: center;">
+  <h1 class="nombre_empresa" id="Nombre_Empresa">
+    HYPERPACK <br>
+    <img src="imagenes/bambu.png" alt="Logo Bambu" class="logo">
+  </h1>
+  <h3 class="texto_izquierda aparicion_lateral">
+    En un mundo donde la sostenibilidad y la innovación convergen, nació <strong>Fito/Tissues</strong>, una empresa pionera dedicada a la confeccion de prendas de tejidos renovables, y como primer producto aportan una revolucionaria fibra de bambú de nueva generación.
+    <img src="imagenes/bosque.jpg" alt="Logo Bosque" class="logo_bosque">
+  </h3>
+  <h3 class="texto_derecha aparicion_lateral_reves">
+    <img src="imagenes/cientificos.png" alt="Logo Cientificos" class="logo_cientifico">
+    Todo comienza con la fibra B-Cell-X, un desarrollo textil de alto rendimiento extraído del bambú mediante un proceso de regeneración en ciclo cerrado, que permite conservar las propiedades naturales del bambú —como su transpirabilidad, suavidad y capacidad antibacteriana— sin generar residuos químicos. Esta fibra no solo es ecológica, sino que ofrece una resistencia mecánica superior al algodón y una adaptabilidad térmica ideal tanto para climas cálidos como fríos. El tejido final es hipoalergénico, compostable y altamente duradero, ideal para una moda ética y técnica.
+  </h3>
+  <h3 class="texto_izquierda aparicion_lateral">
+    Conscientes de que la sostenibilidad no termina en la prenda, en Fito/Tissues decidimos ir más allá: con ayuda de HYPERPACK (desarroladora del proyecto) desarrollamos un sistema de empaquetado modular, inteligente y compostable que respeta la misma filosofía de nuestra empresa. Nuestros envoltorios están hechos con bioplásticos derivados del maíz y almidón de patata, reforzados con microfibras vegetales recicladas. Además, cada paquete incorpora una etiqueta RFID ecológica, que permite el seguimiento de la prenda sin el uso de tinta o materiales contaminantes, y que se desactiva de forma segura al llegar al usuario.
+    <img src="imagenes/planta.png" alt="Logo Planta" class="logo_planta">
+  </h3>
+  <h3 class="texto_derecha aparicion_lateral_reves">
+    <img src="imagenes/ingeniero.png" alt="Logo Ingeniero" class="logo_ingeniero">
+    Para maximizar la eficiencia y minimizar el impacto ambiental, hemos integrado un sistema de robótica colaborativa de última generación en nuestras líneas de empaquetado. Nuestros robots, impulsados por inteligencia artificial adaptativa, son capaces de identificar el tipo de prenda, calcular el volumen óptimo del paquete y aplicar el sellado biodegradable con precisión milimétrica, todo sin intervención humana directa. Esta automatización no solo reduce errores y desperdicios, sino que permite un flujo de trabajo más ágil, seguro y sostenible.
+    <br><br>
+    La combinación de una tecnología textil avanzada, un empaquetado consciente e innovador, y una infraestructura robótica inteligente, nos convierte en un eslabón clave en la cadena de valor de la moda sostenible. No solo empaquetamos ropa: empaquetamos el futuro.
+  </h3>
+  <main>
+    <div class="cuadro posicion-1">
+      <div class="cara cara-frontal">1</div>
+      <div id="cuadro1" class="cara cara-trasera"></div> <!-- Camiseta -->
+    </div>
+  
+    <div class="cuadro posicion-2">
+      <div class="cara cara-frontal">2</div>
+      <div id="cuadro2" class="cara cara-trasera"></div> <!-- Pantalón -->
+    </div>
+  
+    <div class="cuadro posicion-3">
+      <div class="cara cara-frontal">3</div>
+      <div id="cuadro3" class="cara cara-trasera"></div> <!-- Sudadera -->
+    </div>
+  </main>
+  <div id = "ropa "class="cuadro posicion-4">
+    <div class="cara cara-frontal">
+      Camiseta
+    </div>
+    <div class="cara cara-trasera">
+      <h2>Camiseta</h2>
       <button id="camiseta">Camiseta</button>
-      <button id="confirmarCamiseta">Confirmar Camiseta</button>
-      <h2> Seleccione la cantidad de camisetas que desea comprar </h2>
+      <p>Seleccione la cantidad </p>
       <input type="number" id="cantidadCamisetas" min="1" max="10000" value="1">
-    </div>
-    <div class = "aparicion_lateral" style="text-align: center;">
-      <button id="pantalon">Pantalón</button>
-      <button id="confirmarPantalon">Confirmar Pantalón</button>
-      <h2> Seleccione la cantidad de pantalones que desea comprar </h2>
-      <input type="number" id="cantidadPantalones" min="1" max="10000" value="1">
-    </div>
-    <div class = "aparicion_lateral" style="text-align: center;">
-      <button id="chaqueta">Chaqueta</button>
-      <button id="confirmarChaqueta">Confirmar Chaqueta</button>
-      <h2> Seleccione la cantidad de chaquetas que desea comprar </h2>
-      <input type="number" id="cantidadChaquetas" min="1" max="10000" value="1">
+      <button id="confirmarCamiseta">Confirmar Camiseta</button>
     </div>
   </div>
+  
+  <div id="pantalon" class="cuadro posicion-5">
+  <div class="cara cara-frontal">
+    Pantalón
+  </div>
+  <div class="cara cara-trasera">
+    <h2>Pantalón</h2>
+    <button id="pantalonBtn">Pantalón</button>
+    <p>Seleccione la cantidad </p>
+    <input type="number" id="cantidadPantalones" min="1" max="10000" value="1">
+    <button id="confirmarPantalon">Confirmar Pantalón</button>
+  </div>
+</div>
+<div class="cuadro posicion-6">
+  <div class="cara cara-frontal">
+    Sudadera
+  </div>
+  <div class="cara cara-trasera">
+    <h2>Sudadera</h2>
+    <button id="sudaderaBtn">Sudadera</button>
+    <p>Seleccione la cantidad</p>
+    <input type="number" id="cantidadSudaderas" min="1" max="10000" value="1">
+    <button id="confirmarSudadera">Confirmar Sudadera</button>
+  </div>
+</div>
+<a class = "enlace_rubrica" href="rubrica.html"><strong><u>Ir a la Rubrica</u></strong></a>
+
+  
+ 
+  
+  <!--<script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.152.2/build/three.module.js';
+    import { GLTFLoader } from 'https://unpkg.com/three@0.152.2/examples/jsm/loaders/GLTFLoader.js';
+    import { OrbitControls } from 'https://unpkg.com/three@0.152.2/examples/jsm/controls/OrbitControls.js';
+
+    // Crear escena, cámara y renderizador
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, 400 / 300, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(400, 300);
+    document.querySelector('.posicion-1').appendChild(renderer.domElement);
+
+    // Añadir luz ambiental y direccional
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    dirLight.position.set(5, 10, 7);
+    scene.add(dirLight);
+
+    // Controles orbit
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
+    // Posicionar cámara
+    camera.position.set(0, 1.5, 3);
+
+    // Cargar modelo GLB
+    const loader = new GLTFLoader();
+    loader.load(
+      'modelos/tu_modelo.glb', // <-- Cambia por la ruta correcta de tu archivo
+      (gltf) => {
+        scene.add(gltf.scene);
+      },
+      undefined,
+      (error) => {
+        console.error('Error cargando el modelo:', error);
+      }
+    );
+
+    // Animación
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>-->
   <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-  <script src="pagina.JS"></script>
+  <script type="module" src="main.js"></script>
+  <script type="module" src="pagina.JS"></script>
 
 </body>
 </html>

@@ -1,0 +1,68 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background: linear-gradient(315deg, #005577, #993366, #B8860B); /* Degradado diagonal */
+    background-attachment: fixed; /* El fondo no se mueve al hacer scroll */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 200vh;
+    font-family: 'Orbitron', sans-serif;
+    color: #fcfff0;
+  }
+  .titulo{
+    font-family: 'Orbitron', sans-serif;
+    color: linear-gradient(55deg,#fb61f6, #7aff7a);
+    font-size: 144px;
+    text-align: center;
+    font-weight: bold;
+    opacity: 1;
+    transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+    will-change: transform, opacity;
+    position: relative; /* importante para que el transform funcione correctamente */
+  }
+  .texto{
+    text-align: justify;
+    margin-top: 100px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 0px;
+    font-family: 'Orbitron', sans-serif;
+    color: linear-gradient(#fcfff0);
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+    opacity: 1;
+    transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+    will-change: transform, opacity;
+    position: relative; /* importante para que el transform funcione correctamente */
+  }
+  .tabla{
+    width: 450px;
+    margin-left: 380px;
+    margin-right: 30px; /* Espacio entre imagen y texto */
+    margin-top: 50px;
+  }
+  .card {
+    margin-top: var(--card-top);
+    margin-left: var(--card-left);
+    margin-right: 200px;
+    margin-bottom: 0px;
+    background: #1e1e1e;
+    color: white;
+    border: 2px solid #00ffff;
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 8px 20px rgba(0, 255, 255, 0.2);
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    transition: transform 0.3s ease;
+  }
+.posicion-1 {--card-top: 100px; --card-left: 70px;}
+.posicion-2 {--card-top: -170px; --card-left: 435px; }
+.posicion-3 {--card-top: -200px; --card-left: 800px; }
+.posicion-4 {--card-top: 100px; --card-left: 70px; }
+.posicion-5 {--card-top: -235px; --card-left: 435px; }
+.posicion-6 {--card-top: -185px; --card-left: 800px; }  
