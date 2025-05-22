@@ -49,6 +49,10 @@ function enviarPedido(tipo, cantidad) {
 document.addEventListener("DOMContentLoaded", function () {
   const texto = document.getElementById("Texto_Desaparecer");
   const nombreEmpresa = document.getElementById("Nombre_Empresa");
+  const body = document.body;
+
+  // Bloquea scroll y eventos del resto
+  body.style.overflow = "hidden";
 
   function desaparecerTexto() {
     if (texto) {
@@ -57,14 +61,16 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => {
         texto.style.display = "none";
 
-        // Mostrar nombre de la empresa suavemente
-        nombreEmpresa.style.display = "block"; // Se activa para que exista en el flujo
+        // Mostrar el resto de la página
+        nombreEmpresa.style.display = "block";
         void nombreEmpresa.offsetWidth;
         nombreEmpresa.classList.add("elevar_aparece");
-      }, 1000); // Esperamos a que termine la transición del texto (1s)
+
+        // Habilitar scroll/interacciones
+        body.style.overflow = ""; // restablece scroll
+      }, 1000);
     }
 
-    // Solo queremos que funcione una vez
     document.removeEventListener("click", desaparecerTexto);
     document.removeEventListener("touchstart", desaparecerTexto);
   }
