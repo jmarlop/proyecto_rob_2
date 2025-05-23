@@ -618,3 +618,6 @@ body {
     margin-bottom: 100px;
   }
 }
+#qr {
+  display: none;
+}
