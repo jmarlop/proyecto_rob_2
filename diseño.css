@@ -465,6 +465,7 @@ body {
     margin-left: 102%;
     margin-right: auto;
     margin-top: -220px;
+    margin-bottom: 30%;
     display: block;
   }
 
@@ -472,8 +473,8 @@ body {
     width: 390px;
     margin-left: 102%;
     margin-right: 0%;
-    margin-top: -85%;
-    margin-bottom: 100%;
+    margin-top: -75%;
+    margin-bottom: 0%;
     display: block;
   }
 
@@ -485,6 +486,7 @@ body {
     margin-right: 0%;
     /* Espacio entre imagen y texto */
     margin-top: 1%;
+    margin-bottom: 0%;
   }
 
   .logo_ingeniero {
@@ -497,20 +499,10 @@ body {
     display: block;
   }
 
-  .aparicion_lateral {
-    transform: translateX(0) !important;
-    opacity: 1 !important;
-    margin: 50px 10px !important;
-    padding: 10px;
-  }
+
 
   /* Animaciones desde derecha */
-  .aparicion_lateral_reves {
-    transform: translateX(0) !important;
-    opacity: 1 !important;
-    margin: 50px 10px !important;
-    padding: 10px;
-  }
+
 
   /* Textos laterales */
   .texto_izquierda {
@@ -526,24 +518,12 @@ body {
   }
 
   /* Visibilidad forzada */
-  .visible {
-    opacity: 1 !important;
-    transform: translateX(0) !important;
-    pointer-events: auto;
-  }
 
-  .visible_reves {
-    opacity: 1 !important;
-    transform: translateX(0) !important;
-    pointer-events: auto;
-  }
+
+
 
   /* Ocultar elementos */
-  .desaparecer {
-    opacity: 0 !important;
-    pointer-events: none;
-    transform: translateX(0) !important;
-  }
+
 
   .cuadro {
     position: absolute;
@@ -555,32 +535,32 @@ body {
   }
 
   .posicion-1 {
-    --cuadro-top-mobile: 385%;
+    --cuadro-top-mobile: 285%;
     --cuadro-left-mobile: 10%;
   }
 
   .posicion-2 {
-    --cuadro-top-mobile: 385%;
+    --cuadro-top-mobile: 285%;
     --cuadro-left-mobile: 40%;
   }
 
   .posicion-3 {
-    --cuadro-top-mobile: 385%;
+    --cuadro-top-mobile: 285%;
     --cuadro-left-mobile: 70%;
   }
 
   .posicion-4 {
-    --cuadro-top-mobile: 400%;
+    --cuadro-top-mobile: 300%;
     --cuadro-left-mobile: 10%;
   }
 
   .posicion-5 {
-    --cuadro-top-mobile: 400%;
+    --cuadro-top-mobile: 300%;
     --cuadro-left-mobile: 40%;
   }
 
   .posicion-6 {
-    --cuadro-top-mobile: 400%;
+    --cuadro-top-mobile: 300%;
     --cuadro-left-mobile: 70%;
   }
 
@@ -618,6 +598,6 @@ body {
     margin-bottom: 100px;
   }
 }
-#qr {
+#qr{
   display: none;
 }
