@@ -70,7 +70,7 @@ body {
 }
 
 .logo_bosque {
-  margin-left: 740px;
+  margin-left: 105%;
   margin-top: -180px;
   width: 450px;
   /* ajusta el tamaño según necesites */
@@ -86,7 +86,7 @@ body {
 }
 
 .logo_planta {
-  margin-left: 740px;
+  margin-left: 105%;
   margin-top: -300px;
   width: 450px;
 }
