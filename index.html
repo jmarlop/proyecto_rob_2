@@ -149,6 +149,16 @@
     }
     animate();
   </script>-->
+  <script>
+    fetch("conexion.php")
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(item => {
+          document.body.innerHTML += `<p>${JSON.stringify(item)}</p>`;
+        });
+      });
+    </script>
+    
   <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
   <script type="module" src="main.js"></script>
   <script type="module" src="pagina.JS"></script>
