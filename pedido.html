@@ -6,8 +6,8 @@
     <title>Realizar Pedido</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="./qr-code-styling.min.js"></script>  
-    <link rel="stylesheet" href="diseño.css">    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <link rel="stylesheet" href="diseño.css">  
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -104,7 +104,7 @@
         .btn-logout:hover {
             background-color: #dc2626;
         }
-        /* Style for the QR code container */
+        /* Estilos para el contenedor del código QR */
         #qrcode {
             display: flex;
             justify-content: center;
@@ -113,11 +113,18 @@
             border: 1px solid #e5e7eb;
             border-radius: 0.5rem;
             margin-top: 1.5rem;
-            background-color: #f9fafb;
-            min-height: 150px; 
+            background-color: #ffffff;
+            min-height: 200px;
         }
-        #qrcode img, #qrcode canvas {
+        #qrcode canvas {
             border-radius: 0.25rem;
+            background-color: #ffffff;
+        }
+        .qr-info {
+            text-align: center;
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
         }
     </style>
 </head>
@@ -141,26 +148,36 @@
             <button type="submit" class="btn-primary">Enviar Pedido</button>
         </form>
         <div id="orderMessageBox" class="message-box hidden"></div>
-        <div id="qrcode" class="hidden"></div>
+        <div id="qrcode" class="hidden">
+            <canvas id="qr-canvas"></canvas>
+        </div>
+        <div id="qr-info" class="qr-info hidden"></div>
         <button id="logoutButton" class="btn-logout">Cerrar Sesión</button>
     </div>
 
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
     <script>
+        // Obtener referencias a los elementos del DOM
         const orderForm = document.getElementById('orderForm');
         const orderMessageBox = document.getElementById('orderMessageBox');
         const customerInfo = document.getElementById('customerInfo');
         const logoutButton = document.getElementById('logoutButton');
         const qrcodeContainer = document.getElementById('qrcode');
+        const qrCanvas = document.getElementById('qr-canvas');
+        const qrInfo = document.getElementById('qr-info');
 
+        // Detalles del broker MQTT
         const broker = 'wss://broker.emqx.io:8084/mqtt';
         const clientId = 'PedidoWeb_' + Math.random().toString(16).substr(2, 8);
         const topic = 'Ropa';
 
         let client;
         let loggedInCustomerId = sessionStorage.getItem('loggedInCustomerId');
-        let qrCodeInstance; // Variable to hold the QR Code Styling instance
+        let currentQR = null;
 
+        /**
+         * Muestra un mensaje en el cuadro de mensajes.
+         */
         function showMessage(message, type) {
             orderMessageBox.textContent = message;
             orderMessageBox.className = `message-box ${type}`;
@@ -170,98 +187,100 @@
             }, 5000); 
         }
 
-        // Function to display the QR code using QR Code Styling
+        /**
+         * Genera un código QR optimizado para quirc_decode() de ESP32
+         */
         function displayQrCode(orderId) {
-            console.log('Intentando mostrar QR para Order ID:', orderId);
+            console.log('Generando QR optimizado para ESP32 con ID:', orderId);
             
-            // Clear any existing QR code instance or content
-            if (qrCodeInstance) {
-                qrCodeInstance.clear();
-            }
-            qrcodeContainer.innerHTML = ''; // Ensure the container is empty
-
-            // Make sure the container is visible
-            qrcodeContainer.classList.remove('hidden');
+            // Limpiar QR anterior
+            hideQrCode();
             
             try {
-                // Initialize QR Code Styling instance
-                qrCodeInstance = new QRCodeStyling({
-                    width: 128,
-                    height: 128,
-                    data: orderId, // The data to encode
-                    image: null, // No image in the center for now
-                    dotsOptions: {
-                        color: "#000000",
-                        type: "square" // You can try "rounded", "dots", "extra-rounded", "rounded", "classy"
-                    },
-                    backgroundOptions: {
-                        color: "#ffffff",
-                    },
-                    cornersSquareOptions: {
-                        color: "#000000",
-                        type: "square" // "dot", "extra-rounded"
-                    },
-                    cornersDotOptions: {
-                        color: "#000000",
-                        type: "square" // "dot"
-                    }
+                // Asegurar que el orderId sea una cadena simple y corta
+                const qrData = orderId.toString();
+                console.log('Datos del QR (longitud: ' + qrData.length + '):', qrData);
+                
+                // Configuración optimizada para quirc
+                currentQR = new QRious({
+                    element: qrCanvas,
+                    value: qrData,
+                    size: 200,              // Tamaño más pequeño para mejor lectura
+                    level: 'M',             // Nivel de corrección de errores medio (recomendado para quirc)
+                    background: '#ffffff',   // Fondo blanco puro
+                    foreground: '#000000',   // Negro puro para máximo contraste
+                    padding: 20,            // Margen blanco alrededor (zona silenciosa)
+                    backgroundAlpha: 1.0,   // Sin transparencia
+                    foregroundAlpha: 1.0    // Sin transparencia
                 });
 
-                // Append the QR code canvas to the container
-                qrCodeInstance.append(qrcodeContainer);
-                console.log('QR Code generado con éxito.');
-            } catch (qrError) {
-                console.error('Error al generar el QR Code:', qrError);
-                showMessage('Error al generar el código QR. Consulta la consola.', 'error');
+                // Mostrar el contenedor del QR
+                qrcodeContainer.classList.remove('hidden');
+                qrInfo.textContent = `ID de Pedido: ${qrData} (${qrData.length} caracteres)`;
+                qrInfo.classList.remove('hidden');
+                
+                console.log('Código QR generado exitosamente');
+                console.log('Configuración: Tamaño=200px, Nivel=M, Datos=' + qrData);
+                
+            } catch (error) {
+                console.error('Error al generar el código QR:', error);
+                showMessage('Error al generar el código QR.', 'error');
                 hideQrCode();
             }
         }
 
-        // Function to hide the QR code
+        /**
+         * Oculta el código QR
+         */
         function hideQrCode() {
-            if (qrCodeInstance) {
-                qrCodeInstance.clear(); // Clear the QR code from the canvas
-                qrCodeInstance = null; // Dispose of the instance
+            if (currentQR) {
+                // Limpiar el canvas
+                const ctx = qrCanvas.getContext('2d');
+                ctx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
+                currentQR = null;
             }
-            qrcodeContainer.innerHTML = ''; // Ensure the container is empty
-            qrcodeContainer.classList.add('hidden'); // Hide the container
-            console.log('QR Code ocultado.');
+            qrcodeContainer.classList.add('hidden');
+            qrInfo.classList.add('hidden');
+            console.log('Código QR oculto');
         }
 
+        /**
+         * Inicializa el cliente MQTT
+         */
         function initMqttClient() {
-            console.log('Iniciando cliente MQTT...');
+            console.log('Inicializando cliente MQTT...');
             try {
                 client = mqtt.connect(broker, { clientId: clientId });
 
                 client.on('connect', () => {
-                    console.log('Conectado al broker MQTT (Pedidos)');
+                    console.log('Conectado al broker MQTT');
                     showMessage('Conectado al servidor MQTT. Listo para enviar pedidos.', 'success');
                 });
 
                 client.on('error', (err) => {
-                    console.error('Error de conexión MQTT (Pedidos):', err);
-                    showMessage('Error al conectar con el servidor MQTT. Inténtalo de nuevo más tarde.', 'error');
+                    console.error('Error de conexión MQTT:', err);
+                    showMessage('Error al conectar con el servidor MQTT.', 'error');
                 });
 
                 client.on('close', () => {
-                    console.log('Conexión MQTT cerrada (Pedidos)');
+                    console.log('Conexión MQTT cerrada');
                     showMessage('Conexión MQTT cerrada.', 'error');
                 });
 
                 client.on('reconnect', () => {
-                    console.log('Reconectando al broker MQTT (Pedidos)...');
+                    console.log('Reconectando al broker MQTT...');
                     showMessage('Reconectando al servidor MQTT...', 'error');
                 });
 
             } catch (e) {
-                console.error("Error al inicializar el cliente MQTT (Pedidos):", e);
-                showMessage('Error crítico al inicializar MQTT. Verifica la consola.', 'error');
+                console.error("Error al inicializar el cliente MQTT:", e);
+                showMessage('Error crítico al inicializar MQTT.', 'error');
             }
         }
 
+        // Verificar sesión
         if (!loggedInCustomerId) {
-            const modalMessage = "No has iniciado sesión. Redirigiendo a la página de inicio de sesión.";
-            console.warn(modalMessage); 
+            console.warn("No has iniciado sesión. Redirigiendo..."); 
             setTimeout(() => {
                 window.location.href = 'registro.html';
             }, 1000); 
@@ -270,14 +289,15 @@
             document.addEventListener('DOMContentLoaded', initMqttClient);
         }
 
+        // Manejar envío del formulario
         orderForm.addEventListener('submit', (event) => {
-            event.preventDefault(); 
-            hideQrCode(); 
+            event.preventDefault();
+            hideQrCode();
 
             if (!client || !client.connected) {
-                console.warn('Cliente MQTT no conectado o nulo. Intentando reconectar...');
+                console.warn('Cliente MQTT no conectado');
                 showMessage('No conectado al servidor MQTT. Intentando reconectar...', 'error');
-                initMqttClient(); 
+                initMqttClient();
                 return;
             }
 
@@ -286,13 +306,14 @@
             const sudaderas = parseInt(document.getElementById('sudaderas').value);
 
             if (camisetas + pantalones + sudaderas <= 0) {
-                showMessage('Por favor, selecciona al menos un artículo para realizar el pedido.', 'error');
+                showMessage('Por favor, selecciona al menos un artículo.', 'error');
                 return;
             }
 
-            const orderId = `ORDER-${loggedInCustomerId}-${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
-            console.log('Order ID generado:', orderId); 
-
+            // Generar ID más corto para mejor compatibilidad con quirc
+            const orderId = Math.floor(10000 + Math.random() * 90000).toString();
+            console.log('ID de pedido generado:', orderId);
+            
             const orderData = {
                 orderId: orderId,
                 clienteId: loggedInCustomerId,
@@ -303,34 +324,32 @@
             };
 
             const payload = JSON.stringify(orderData);
-            console.log('Payload MQTT a enviar:', payload);
+            console.log('Publicando pedido MQTT:', payload);
 
             try {
                 client.publish(topic, payload, { qos: 1 }, (err) => {
                     if (err) {
-                        console.error('Error al publicar mensaje MQTT:', err);
-                        showMessage('Error al enviar el pedido. Inténtalo de nuevo.', 'error');
+                        console.error('Error al publicar:', err);
+                        showMessage('Error al enviar el pedido.', 'error');
                     } else {
-                        console.log('Pedido publicado con éxito. Llamando a displayQrCode.');
-                        showMessage(`¡Pedido enviado correctamente! Tu ID de pedido es: ${orderId}`, 'success');
+                        console.log('Pedido enviado exitosamente');
+                        showMessage(`¡Pedido enviado! ID: ${orderId}`, 'success');
                         displayQrCode(orderId);
                         orderForm.reset();
                     }
                 });
             } catch (e) {
-                console.error("Error al intentar publicar el mensaje MQTT:", e);
-                showMessage('Error inesperado al intentar enviar el pedido. Consulta la consola.', 'error');
+                console.error("Error al publicar:", e);
+                showMessage('Error inesperado al enviar el pedido.', 'error');
             }
         });
 
+        // Manejar logout
         logoutButton.addEventListener('click', () => {
-            sessionStorage.removeItem('loggedInCustomerId'); 
-            hideQrCode(); 
+            sessionStorage.removeItem('loggedInCustomerId');
+            hideQrCode();
             orderMessageBox.classList.add('hidden');
-
-            const logoutMessage = "Has cerrado sesión.";
-            console.log(logoutMessage); 
-            showMessage(logoutMessage, 'success'); 
+            showMessage("Has cerrado sesión.", 'success');
             setTimeout(() => {
                 window.location.href = 'inicio_sesion.html'; 
             }, 1500); 
