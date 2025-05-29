@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Cliente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="diseño.css">  
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid #e5e7eb;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            color: #1f2937;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        .btn-primary {
+            background-color: #4f46e5;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            border: none;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #4338ca;
+            transform: translateY(-1px);
+        }
+        .message-box.success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #34d399;
+        }
+        .message-box.error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        .text-link {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            display: block;
+            text-align: center;
+        }
+        .text-link:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeInSlide {
+            0% {
+              opacity: 0;
+              transform: translate(-30px, -30px);
+            }
+            100% {
+              opacity: 1;
+              transform: translate(0, 0);
+            }
+          }
+          
+          .message-box {
+            
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+          }
+          .message-box.hidden {
+            visibility: hidden;
+            opacity: 0;
+          }
+          .animate-fade-in-slide {
+            animation: fadeInSlide 0.6s ease-out forwards;
+          }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Registro de Cliente</h2>
+        <form id="registrationForm" class="space-y-6">
+            <div class="form-group">
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Introduce tu nombre completo" required>
+            </div>
+            <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" placeholder="Introduce tu dirección" required>
+            </div>
+            <div class="form-group">
+                <label for="gmail">Gmail:</label>
+                <input type="email" id="gmail" name="gmail" placeholder="Introduce tu Gmail" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Introduce tu teléfono" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" placeholder="Introduce tu contraseña" required>
+            </div>
+            <button type="submit" class="btn-primary">Registrarse</button>
+        </form>
+        <div id="registrationMessageBox" class="message-box hidden"></div>
+        <a href="login.html" class="text-link">¿Ya tienes cuenta? Inicia Sesión aquí.</a>
+    </div>
+
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script>
+        const registrationForm = document.getElementById('registrationForm');
+        const registrationMessageBox = document.getElementById('registrationMessageBox');
+
+        const broker = 'wss://broker.emqx.io:8084/mqtt';
+        const clientId = 'RegistroWeb_' + Math.random().toString(16).substr(2, 8);
+        const topic = 'Cliente';
+
+        let client;
+        
+
+        // Función para generar un ID de 10 dígitos automáticamente
+        function generateCustomerId() {
+            return Math.floor(1000000000 + Math.random() * 9000000000).toString();
+        }
+
+        // Función para mostrar mensajes al usuario
+        function showMessage(message, type) {
+            registrationMessageBox.textContent = message;
+            registrationMessageBox.textContent = message;
+            registrationMessageBox.className = `message-box ${type} animate-fade-in-slide`;
+            registrationMessageBox.style.visibility = 'visible';
+
+            // Reiniciar animación (clave)
+            registrationMessageBox.classList.remove('animate-fade-in-slide');
+            void registrationMessageBox.offsetWidth; // Forzar reflow
+            registrationMessageBox.classList.add('animate-fade-in-slide');
+
+            setTimeout(() => {
+                registrationMessageBox.style.visibility = 'hidden';
+            }, 5000);
+        }
+        
+
+        // Función para inicializar el cliente MQTT
+        function initMqttClient() {
+            try {
+                client = mqtt.connect(broker, { clientId: clientId });
+
+                client.on('connect', () => {
+                    console.log('Conectado al broker MQTT (Registro)');
+                    showMessage('Conectado al servidor MQTT.', 'success');
+                });
+
+                client.on('error', (err) => {
+                    console.error('Error de conexión MQTT (Registro):', err);
+                    showMessage('Error al conectar con el servidor MQTT. Inténtalo de nuevo más tarde.', 'error');
+                    client.end();
+                });
+
+                client.on('close', () => {
+                    console.log('Conexión MQTT cerrada (Registro)');
+                    showMessage('Conexión MQTT cerrada.', 'error');
+                });
+
+                client.on('reconnect', () => {
+                    console.log('Reconectando al broker MQTT (Registro)...');
+                    showMessage('Reconectando al servidor MQTT...', 'error');
+                });
+
+            } catch (e) {
+                console.error("Error al inicializar el cliente MQTT (Registro):", e);
+                showMessage('Error crítico al inicializar MQTT. Verifica la consola.', 'error');
+            }
+        }
+
+        // Event listener para el envío del formulario
+        registrationForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevenir el envío tradicional del formulario
+
+            if (!client || !client.connected) {
+                showMessage('No conectado al servidor MQTT. Intentando reconectar...', 'error');
+                initMqttClient(); // Intenta reconectar si no está conectado
+                return;
+            }
+
+            // Generar el ID del cliente automáticamente
+            const customerId = generateCustomerId();
+
+            // Recopilar los datos del formulario
+            const clientData = {
+                id: customerId, // ID generado automáticamente
+                nombre: document.getElementById('nombre').value,
+                direccion: document.getElementById('direccion').value,
+                gmail: document.getElementById('gmail').value,
+                telefono: document.getElementById('telefono').value,
+                password: document.getElementById('password').value // Em uma aplicação real, a senha seria hasheada
+            };
+
+            // Convertir los datos a una cadena JSON
+            const payload = JSON.stringify(clientData);
+
+            try {
+                // Publicar el mensaje MQTT
+                client.publish(topic, payload, { qos: 1 }, (err) => {
+                    if (err) {
+                        console.error('Error al publicar mensaje MQTT:', err);
+                        showMessage('Error al enviar datos de registro. Inténtalo de nuevo.', 'error');
+                    } else {
+                        console.log('Datos de cliente publicados con éxito:', payload);
+                        showMessage('¡Registro exitoso! Tu ID es: ' + customerId + '. Ya puedes iniciar sesión.', 'success');
+                        registrationForm.reset(); // Limpiar el formulario
+                    }
+                });
+            } catch (e) {
+                console.error("Error al intentar publicar el mensaje MQTT:", e);
+                showMessage('Error inesperado al intentar registrar. Consulta la consola.', 'error');
+            }
+            
+        });
+
+        // Inicializar el cliente MQTT cuando la ventana carga
+        window.onload = initMqttClient;
+    </script>
+</body>
+</html>

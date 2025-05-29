@@ -96,7 +96,8 @@
     <button id="confirmarSudadera">Confirmar Sudadera</button>
   </div>
 </div>
-<a class = "enlace_rubrica" href="rubrica.html"><strong><u>Ir a la Rubrica</u></strong></a>
+<a class = "enlace_rubrica" href="registro.html"><strong><u>Ir al registro</u></strong></a>
+
 
   
  
@@ -149,15 +150,6 @@
     }
     animate();
   </script>-->
-  <script>
-    fetch("conexion.php")
-      .then(res => res.json())
-      .then(data => {
-        data.forEach(item => {
-          document.body.innerHTML += `<p>${JSON.stringify(item)}</p>`;
-        });
-      });
-    </script>
     
   <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
   <script type="module" src="main.js"></script>

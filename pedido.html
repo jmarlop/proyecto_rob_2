@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realizar Pedido</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="./qr-code-styling.min.js"></script>  
+    <link rel="stylesheet" href="diseño.css">    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid #e5e7eb;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            color: #1f2937;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .form-group input[type="number"]:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        .btn-primary {
+            background-color: #4f46e5;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            border: none;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #4338ca;
+            transform: translateY(-1px);
+        }
+        .message-box {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+        }
+        .message-box.success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #34d399;
+        }
+        .message-box.error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        .text-info {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .btn-logout {
+            background-color: #ef4444;
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            border: none;
+            margin-top: 1.5rem;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        .btn-logout:hover {
+            background-color: #dc2626;
+        }
+        /* Style for the QR code container */
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+            background-color: #f9fafb;
+            min-height: 150px; 
+        }
+        #qrcode img, #qrcode canvas {
+            border-radius: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Realizar Pedido</h2>
+        <p id="customerInfo" class="text-info"></p>
+        <form id="orderForm" class="space-y-6">
+            <div class="form-group">
+                <label for="camisetas">Cantidad de Camisetas:</label>
+                <input type="number" id="camisetas" name="camisetas" value="0" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="pantalones">Cantidad de Pantalones:</label>
+                <input type="number" id="pantalones" name="pantalones" value="0" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="sudaderas">Cantidad de Sudaderas:</label>
+                <input type="number" id="sudaderas" name="sudaderas" value="0" min="0" required>
+            </div>
+            <button type="submit" class="btn-primary">Enviar Pedido</button>
+        </form>
+        <div id="orderMessageBox" class="message-box hidden"></div>
+        <div id="qrcode" class="hidden"></div>
+        <button id="logoutButton" class="btn-logout">Cerrar Sesión</button>
+    </div>
+
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script>
+        const orderForm = document.getElementById('orderForm');
+        const orderMessageBox = document.getElementById('orderMessageBox');
+        const customerInfo = document.getElementById('customerInfo');
+        const logoutButton = document.getElementById('logoutButton');
+        const qrcodeContainer = document.getElementById('qrcode');
+
+        const broker = 'wss://broker.emqx.io:8084/mqtt';
+        const clientId = 'PedidoWeb_' + Math.random().toString(16).substr(2, 8);
+        const topic = 'Ropa';
+
+        let client;
+        let loggedInCustomerId = sessionStorage.getItem('loggedInCustomerId');
+        let qrCodeInstance; // Variable to hold the QR Code Styling instance
+
+        function showMessage(message, type) {
+            orderMessageBox.textContent = message;
+            orderMessageBox.className = `message-box ${type}`;
+            orderMessageBox.classList.remove('hidden');
+            setTimeout(() => {
+                orderMessageBox.classList.add('hidden');
+            }, 5000); 
+        }
+
+        // Function to display the QR code using QR Code Styling
+        function displayQrCode(orderId) {
+            console.log('Intentando mostrar QR para Order ID:', orderId);
+            
+            // Clear any existing QR code instance or content
+            if (qrCodeInstance) {
+                qrCodeInstance.clear();
+            }
+            qrcodeContainer.innerHTML = ''; // Ensure the container is empty
+
+            // Make sure the container is visible
+            qrcodeContainer.classList.remove('hidden');
+            
+            try {
+                // Initialize QR Code Styling instance
+                qrCodeInstance = new QRCodeStyling({
+                    width: 128,
+                    height: 128,
+                    data: orderId, // The data to encode
+                    image: null, // No image in the center for now
+                    dotsOptions: {
+                        color: "#000000",
+                        type: "square" // You can try "rounded", "dots", "extra-rounded", "rounded", "classy"
+                    },
+                    backgroundOptions: {
+                        color: "#ffffff",
+                    },
+                    cornersSquareOptions: {
+                        color: "#000000",
+                        type: "square" // "dot", "extra-rounded"
+                    },
+                    cornersDotOptions: {
+                        color: "#000000",
+                        type: "square" // "dot"
+                    }
+                });
+
+                // Append the QR code canvas to the container
+                qrCodeInstance.append(qrcodeContainer);
+                console.log('QR Code generado con éxito.');
+            } catch (qrError) {
+                console.error('Error al generar el QR Code:', qrError);
+                showMessage('Error al generar el código QR. Consulta la consola.', 'error');
+                hideQrCode();
+            }
+        }
+
+        // Function to hide the QR code
+        function hideQrCode() {
+            if (qrCodeInstance) {
+                qrCodeInstance.clear(); // Clear the QR code from the canvas
+                qrCodeInstance = null; // Dispose of the instance
+            }
+            qrcodeContainer.innerHTML = ''; // Ensure the container is empty
+            qrcodeContainer.classList.add('hidden'); // Hide the container
+            console.log('QR Code ocultado.');
+        }
+
+        function initMqttClient() {
+            console.log('Iniciando cliente MQTT...');
+            try {
+                client = mqtt.connect(broker, { clientId: clientId });
+
+                client.on('connect', () => {
+                    console.log('Conectado al broker MQTT (Pedidos)');
+                    showMessage('Conectado al servidor MQTT. Listo para enviar pedidos.', 'success');
+                });
+
+                client.on('error', (err) => {
+                    console.error('Error de conexión MQTT (Pedidos):', err);
+                    showMessage('Error al conectar con el servidor MQTT. Inténtalo de nuevo más tarde.', 'error');
+                });
+
+                client.on('close', () => {
+                    console.log('Conexión MQTT cerrada (Pedidos)');
+                    showMessage('Conexión MQTT cerrada.', 'error');
+                });
+
+                client.on('reconnect', () => {
+                    console.log('Reconectando al broker MQTT (Pedidos)...');
+                    showMessage('Reconectando al servidor MQTT...', 'error');
+                });
+
+            } catch (e) {
+                console.error("Error al inicializar el cliente MQTT (Pedidos):", e);
+                showMessage('Error crítico al inicializar MQTT. Verifica la consola.', 'error');
+            }
+        }
+
+        if (!loggedInCustomerId) {
+            const modalMessage = "No has iniciado sesión. Redirigiendo a la página de inicio de sesión.";
+            console.warn(modalMessage); 
+            setTimeout(() => {
+                window.location.href = 'registro.html';
+            }, 1000); 
+        } else {
+            customerInfo.textContent = `Bienvenido, Cliente ID: ${loggedInCustomerId}`;
+            document.addEventListener('DOMContentLoaded', initMqttClient);
+        }
+
+        orderForm.addEventListener('submit', (event) => {
+            event.preventDefault(); 
+            hideQrCode(); 
+
+            if (!client || !client.connected) {
+                console.warn('Cliente MQTT no conectado o nulo. Intentando reconectar...');
+                showMessage('No conectado al servidor MQTT. Intentando reconectar...', 'error');
+                initMqttClient(); 
+                return;
+            }
+
+            const camisetas = parseInt(document.getElementById('camisetas').value);
+            const pantalones = parseInt(document.getElementById('pantalones').value);
+            const sudaderas = parseInt(document.getElementById('sudaderas').value);
+
+            if (camisetas + pantalones + sudaderas <= 0) {
+                showMessage('Por favor, selecciona al menos un artículo para realizar el pedido.', 'error');
+                return;
+            }
+
+            const orderId = `ORDER-${loggedInCustomerId}-${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
+            console.log('Order ID generado:', orderId); 
+
+            const orderData = {
+                orderId: orderId,
+                clienteId: loggedInCustomerId,
+                camisetas: camisetas,
+                pantalones: pantalones,
+                sudaderas: sudaderas,
+                timestamp: new Date().toISOString()
+            };
+
+            const payload = JSON.stringify(orderData);
+            console.log('Payload MQTT a enviar:', payload);
+
+            try {
+                client.publish(topic, payload, { qos: 1 }, (err) => {
+                    if (err) {
+                        console.error('Error al publicar mensaje MQTT:', err);
+                        showMessage('Error al enviar el pedido. Inténtalo de nuevo.', 'error');
+                    } else {
+                        console.log('Pedido publicado con éxito. Llamando a displayQrCode.');
+                        showMessage(`¡Pedido enviado correctamente! Tu ID de pedido es: ${orderId}`, 'success');
+                        displayQrCode(orderId);
+                        orderForm.reset();
+                    }
+                });
+            } catch (e) {
+                console.error("Error al intentar publicar el mensaje MQTT:", e);
+                showMessage('Error inesperado al intentar enviar el pedido. Consulta la consola.', 'error');
+            }
+        });
+
+        logoutButton.addEventListener('click', () => {
+            sessionStorage.removeItem('loggedInCustomerId'); 
+            hideQrCode(); 
+            orderMessageBox.classList.add('hidden');
+
+            const logoutMessage = "Has cerrado sesión.";
+            console.log(logoutMessage); 
+            showMessage(logoutMessage, 'success'); 
+            setTimeout(() => {
+                window.location.href = 'inicio_sesion.html'; 
+            }, 1500); 
+        });
+    </script>
+</body>
+</html>

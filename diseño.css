@@ -601,3 +601,8 @@ body {
 #qr{
   display: none;
 }
+.posicion-4,
+.posicion-5,
+.posicion-6 {
+  display: none;
+}
